@@ -1,0 +1,33 @@
+$padding-px: 10px;
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: lightblue;
+
+  div {
+    font-weight: bold;
+    padding: $padding-px;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+
+    li {
+      padding: $padding-px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .header {
+    display: block;
+    text-align: center;
+
+    ul {
+      display: block;
+    }
+  }
+}
