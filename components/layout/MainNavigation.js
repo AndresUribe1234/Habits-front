@@ -1,24 +1,37 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import classes from "./MainNavigation.module.scss";
 import Link from "next/link";
 
 const MainNavigaton = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const navLoggedIn = ["Feed", "My progess", "Global leaderboard", "Sign Out"];
-  const navNotLoggedIn = ["Home", "Log In"];
+  const loggedInUI = (
+    <React.Fragment>
+      <li>
+        <Link href={"/feed"}>Feed</Link>
+      </li>
+      <li>
+        <Link href={"/myprogress"}>My Progess</Link>
+      </li>
+      <li>
+        <Link href={"/globalleaderboard"}>Global Leaderboard</Link>
+      </li>
+      <li>
+        <Link href={"/logout"}>Log Out</Link>
+      </li>
+    </React.Fragment>
+  );
 
-  const loggedInUI = navLoggedIn.map((ele) => (
-    <li>
-      <Link href={ele === "Home" ? "/" : `/${ele}`}>{ele}</Link>
-    </li>
-  ));
-
-  const notLoggedInUI = navNotLoggedIn.map((ele) => (
-    <li>
-      <Link href={ele === "Home" ? "/" : `/${ele}`}>{ele}</Link>
-    </li>
-  ));
+  const notLoggedInUI = (
+    <React.Fragment>
+      <li>
+        <Link href={"/"}>Home</Link>
+      </li>
+      <li>
+        <Link href={"/login"}>Log In</Link>
+      </li>
+    </React.Fragment>
+  );
 
   return (
     <header className={classes.header}>
