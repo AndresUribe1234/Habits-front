@@ -10,13 +10,13 @@ const MainNavigaton = () => {
 
   const loggedInUI = navLoggedIn.map((ele) => (
     <li>
-      <Link href={`/${ele}`}>{ele}</Link>
+      <Link href={ele === "Home" ? "/" : `/${ele}`}>{ele}</Link>
     </li>
   ));
 
   const notLoggedInUI = navNotLoggedIn.map((ele) => (
     <li>
-      <Link href={`/${ele}`}>{ele}</Link>
+      <Link href={ele === "Home" ? "/" : `/${ele}`}>{ele}</Link>
     </li>
   ));
 

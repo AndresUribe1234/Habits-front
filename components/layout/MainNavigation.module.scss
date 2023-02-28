@@ -1,9 +1,10 @@
 $padding-px: 10px;
 
+@import "./../../styles/mixins";
+
 .header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: block;
+  text-align: center;
   background-color: lightblue;
 
   div {
@@ -12,22 +13,23 @@ $padding-px: 10px;
   }
 
   ul {
-    display: flex;
+    display: block;
     list-style: none;
+  }
 
-    li {
-      padding: $padding-px;
-    }
+  li {
+    padding: $padding-px;
   }
 }
 
-@media (max-width: 400px) {
+@include desktop() {
   .header {
-    display: block;
-    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 
     ul {
-      display: block;
+      display: flex;
     }
   }
 }
