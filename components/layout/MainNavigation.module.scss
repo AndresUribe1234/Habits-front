@@ -1,15 +1,17 @@
-$padding-px: 10px;
-
 @import "./../../styles/mixins";
+@import "./../../styles/vars";
 
 .header {
+  width: 100%;
   display: block;
   text-align: center;
   background-color: lightblue;
 
+  border-bottom: 1px solid lightgray;
+
   div {
     font-weight: bold;
-    padding: $padding-px;
+    padding: $nav-padding-px;
   }
 
   ul {
@@ -18,18 +20,30 @@ $padding-px: 10px;
   }
 
   li {
-    padding: $padding-px;
+    padding: $nav-padding-px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .active {
+    color: white;
   }
 }
 
 @include desktop() {
   .header {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    font-size: 40px;
+    padding: 10px;
 
     ul {
       display: flex;
+      align-items: center;
+      margin-right: 20px;
     }
   }
 }
