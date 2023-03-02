@@ -38,6 +38,8 @@
 @include desktop() {
   .auth-login-form {
     font-size: 24px;
+    width: 70vw;
+    margin: 10px auto 0 auto;
 
     input {
       height: 24px;

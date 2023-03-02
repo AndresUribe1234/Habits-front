@@ -1,5 +1,4 @@
-import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./LoginForm.module.scss";
 
 const loginRoute = "http://localhost:8000/api/users/login";
@@ -9,13 +8,22 @@ const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
 
-  const singupAPICall = async function (emailBody, passwordBody) {
+  const singupAPICall = async function (
+    emailBody,
+    passwordBody,
+    passwordConfirmBody
+  ) {
     try {
       const object = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailBody, password: passwordBody }),
+        body: JSON.stringify({
+          email: emailBody,
+          password: passwordBody,
+          passwordConfirm: passwordConfirmBody,
+        }),
       };
       const response = await fetch(signupRoute, object);
 
@@ -29,6 +37,8 @@ const LoginForm = () => {
         console.log(data);
         emailRef.current.value = "";
         passwordRef.current.value = "";
+        passwordConfirmRef.current.value = "";
+        setIsLogin(true);
       }
     } catch (err) {
       console.log(err);
@@ -65,21 +75,34 @@ const LoginForm = () => {
 
     const usernameEnteredValue = emailRef.current.value;
     const passwordEnteredValue = passwordRef.current.value;
-
-    console.log(usernameEnteredValue, passwordEnteredValue);
+    let passwordConfirmEnteredValue;
 
     if (isLogin) {
       loginAPICall(usernameEnteredValue, passwordEnteredValue);
     }
 
     if (!isLogin) {
-      singupAPICall(usernameEnteredValue, passwordEnteredValue);
+      passwordConfirmEnteredValue = passwordConfirmRef.current.value;
+      singupAPICall(
+        usernameEnteredValue,
+        passwordEnteredValue,
+        passwordConfirmEnteredValue
+      );
     }
   }
 
   function switchLoginHandler() {
     setIsLogin((prev) => !prev);
   }
+
+  const passwordConfirmHtml = (
+    <React.Fragment>
+      <div>
+        <label>Password Confirm</label>
+        <input ref={passwordConfirmRef} type={"password"}></input>
+      </div>
+    </React.Fragment>
+  );
 
   return (
     <form onSubmit={loginHandler} className={classes["auth-login-form"]}>
@@ -92,6 +115,7 @@ const LoginForm = () => {
         <label>Password</label>
         <input ref={passwordRef} type={"password"}></input>
       </div>
+      {!isLogin && passwordConfirmHtml}
       <button>{isLogin ? "Login" : "Create new account"}</button>
       <button
         type="button"
