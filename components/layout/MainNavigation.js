@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import classes from "./MainNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import AuthContext from "@/store/auth-context";
 
 const MainNavigaton = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
   const router = useRouter();
+  const authCtx = useContext(AuthContext);
+  const isLogIn = authCtx.authObject.isLogIn;
+
+  const logOutHandler = () => {
+    authCtx.logInFnx(false);
+    localStorage.removeItem("authObject");
+    router.push("/");
+  };
 
   const loggedInUI = (
     <React.Fragment>
@@ -36,14 +43,7 @@ const MainNavigaton = () => {
           Global Leaderboard
         </Link>
       </li>
-      <li>
-        <Link
-          href={"/logout"}
-          className={router.pathname === "/logout" ? classes.active : ""}
-        >
-          Log Out
-        </Link>
-      </li>
+      <li onClick={logOutHandler}>Log Out</li>
     </React.Fragment>
   );
 
@@ -72,7 +72,7 @@ const MainNavigaton = () => {
     <header className={classes.header}>
       <div>Habitus</div>
       <nav>
-        <ul>{!loggedIn ? notLoggedInUI : loggedInUI}</ul>
+        <ul>{!isLogIn ? notLoggedInUI : loggedInUI}</ul>
       </nav>
     </header>
   );

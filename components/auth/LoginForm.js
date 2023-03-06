@@ -1,14 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import classes from "./LoginForm.module.scss";
-
-const loginRoute = "http://localhost:8000/api/users/login";
-const signupRoute = "http://localhost:8000/api/users/signup";
+import AuthContext from "@/store/auth-context";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const authCtx = useContext(AuthContext);
 
   const singupAPICall = async function (
     emailBody,
@@ -25,7 +26,10 @@ const LoginForm = () => {
           passwordConfirm: passwordConfirmBody,
         }),
       };
-      const response = await fetch(signupRoute, object);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/signup`,
+        object
+      );
 
       const data = await response.json();
 
@@ -34,11 +38,20 @@ const LoginForm = () => {
       }
 
       if (response.status === 200) {
-        console.log(data);
         emailRef.current.value = "";
         passwordRef.current.value = "";
         passwordConfirmRef.current.value = "";
+        localStorage.setItem(
+          "authObject",
+          JSON.stringify({
+            loggedIn: true,
+            toke: data.token,
+            user: data.data.user.email,
+          })
+        );
         setIsLogin(true);
+        authCtx.logInFnx(true);
+        router.push("/feed");
       }
     } catch (err) {
       console.log(err);
@@ -52,7 +65,10 @@ const LoginForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailBody, password: passwordBody }),
       };
-      const response = await fetch(loginRoute, object);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/login`,
+        object
+      );
 
       const data = await response.json();
 
@@ -61,9 +77,18 @@ const LoginForm = () => {
       }
 
       if (response.status === 200) {
-        console.log(data);
         emailRef.current.value = "";
         passwordRef.current.value = "";
+        authCtx.logInFnx(true);
+        localStorage.setItem(
+          "authObject",
+          JSON.stringify({
+            loggedIn: true,
+            toke: data.token,
+            user: data.data.user.email,
+          })
+        );
+        router.push("/feed");
       }
     } catch (err) {
       console.log(err);

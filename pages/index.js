@@ -1,7 +1,19 @@
 import Head from "next/head";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import AuthContext from "@/store/auth-context";
+import { loggedInFxn } from "./../util/helperFxn";
 
 export default function Home() {
+  const authCtx = useContext(AuthContext);
+  useEffect(() => {
+    const authObject = loggedInFxn();
+    if (authObject && authObject.loggedIn) {
+      authCtx.logInFnx(true);
+    }
+  }, []);
+  const ctxShowHandler = () => {
+    console.log(authCtx);
+  };
   return (
     <React.Fragment>
       <Head>
@@ -11,6 +23,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <p>Home page</p>
+      <button onClick={ctxShowHandler}>console log context</button>
     </React.Fragment>
   );
 }
