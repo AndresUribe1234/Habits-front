@@ -45,7 +45,7 @@ const LoginForm = () => {
           "authObject",
           JSON.stringify({
             loggedIn: true,
-            toke: data.token,
+            token: data.token,
             user: data.data.user.email,
           })
         );
@@ -84,7 +84,7 @@ const LoginForm = () => {
           "authObject",
           JSON.stringify({
             loggedIn: true,
-            toke: data.token,
+            token: data.token,
             user: data.data.user.email,
           })
         );

@@ -9,6 +9,8 @@ export default function Home() {
     const authObject = loggedInFxn();
     if (authObject && authObject.loggedIn) {
       authCtx.logInFnx(true);
+      authCtx.tokenFnx(authObject.token);
+      authCtx.userFnx(authObject.user);
     }
   }, []);
   const ctxShowHandler = () => {

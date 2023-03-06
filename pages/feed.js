@@ -9,10 +9,12 @@ const Feed = () => {
     const authObject = loggedInFxn();
     if (authObject && authObject.loggedIn) {
       authCtx.logInFnx(true);
+      authCtx.tokenFnx(authObject.token);
+      authCtx.userFnx(authObject.user);
     }
   }, []);
 
-  if (!authCtx.authObject.isLogin) {
+  if (!authCtx.authObject.isLogIn) {
     return (
       <h1>
         Please <Link href={"/login"}>Log in</Link> in order to have acces to the
