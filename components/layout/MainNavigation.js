@@ -3,6 +3,7 @@ import classes from "./MainNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import AuthContext from "@/store/auth-context";
+import BasicMenuMui from "./BasicMenuMui";
 
 const MainNavigaton = () => {
   const router = useRouter();
@@ -43,7 +44,7 @@ const MainNavigaton = () => {
           Global Leaderboard
         </Link>
       </li>
-      <li onClick={logOutHandler}>Log Out</li>
+      <BasicMenuMui onLogout={logOutHandler} />
     </React.Fragment>
   );
 
