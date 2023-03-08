@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import classes from "./MainNavigation.module.scss";
+import classes from "./../../styles/MainNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import AuthContext from "@/store/auth-context";

@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import classes from "./MainNavigation.module.scss";
+import classes from "./../../styles/MainNavigation.module.scss";
 import { useRouter } from "next/router";
 
 export default function BasicMenu(props) {

@@ -1,5 +1,5 @@
-@import "./../../styles/mixins";
-@import "./../../styles/vars";
+@import "./mixins";
+@import "./vars";
 
 .auth-login-form {
   @extend %container;
@@ -19,12 +19,7 @@
   }
 
   button {
-    cursor: pointer;
-    margin: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    font-size: 16px;
+    @extend %btn;
   }
 
   .switch-btn-func {

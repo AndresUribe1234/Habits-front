@@ -1,10 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "@/store/auth-context";
 import { loggedInFxn } from "@/util/helperFxn";
 import Link from "next/link";
+import classes from "./../styles/Profile.module.scss";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import ModalMuiAddHabitSettings from "./../components/habits/ModalMuiAddHabitSettings";
+
+const DUMMY_HABITS = ["run", "read", "study"];
+const DUMMY_NAME = "Mariana";
 
 const Profile = () => {
+  const [editingName, setEditingName] = useState(false);
+  const [editingHabits, setEditingHabits] = useState(false);
+  const [editingProfil, setEditingProfile] = useState(false);
+  const [habits, setHabits] = useState(DUMMY_HABITS);
+  const [name, setName] = useState(DUMMY_NAME);
+  const nameRef = useRef();
+
   const authCtx = useContext(AuthContext);
+
   useEffect(() => {
     const authObject = loggedInFxn();
     if (authObject && authObject.loggedIn) {
@@ -13,6 +27,7 @@ const Profile = () => {
       authCtx.userFnx(authObject.user);
     }
   }, []);
+
   if (!authCtx.authObject.isLogIn) {
     return (
       <h1>
@@ -21,7 +36,66 @@ const Profile = () => {
       </h1>
     );
   }
-  return <h1>Profile page</h1>;
+
+  const editNameHandler = (event) => {
+    console.log(editingName);
+    console.log("before change in state", event.target);
+    setEditingName((prev) => !prev);
+
+    console.log("after change in state", event.target);
+    console.log(editingName);
+  };
+
+  const editProfileHandler = () => {
+    setEditingProfile((prev) => !prev);
+  };
+
+  const addHabitHandler = (newHabbit) => {
+    console.log(newHabbit);
+    setHabits((prev) => [...prev, newHabbit]);
+  };
+
+  return (
+    <form className={classes["profile-container"]}>
+      <div className={classes["name-container"]}>
+        <span>Name</span>
+        {!editingProfil ? (
+          <p>{name}</p>
+        ) : (
+          <input ref={nameRef} defaultValue={name}></input>
+        )}
+      </div>
+      <div className={classes["habits-container"]}>
+        <ul>
+          <span>Habits</span>
+          {habits.map((ele) => (
+            <li key={ele}>
+              <span className={classes["habit-name-placeholder"]}>{ele}</span>
+              {editingProfil && (
+                <button className={classes["delete-btn"]} type="button">
+                  <DeleteRoundedIcon />
+                </button>
+              )}
+            </li>
+          ))}
+          <div className={classes["btn-container"]}>
+            {editingProfil && (
+              <ModalMuiAddHabitSettings
+                onAddHabit={addHabitHandler}
+                data={habits}
+              />
+            )}
+          </div>
+        </ul>
+      </div>
+      <div className={classes["btn-container"]}>
+        {editingProfil && <button type="submit">Submit</button>}
+        <button type="button" onClick={editProfileHandler}>
+          {!editingProfil ? "Edit" : "Cancel"}
+        </button>
+      </div>
+    </form>
+  );
 };
 
 export default Profile;

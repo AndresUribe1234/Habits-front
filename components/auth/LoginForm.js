@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from "react";
-import classes from "./LoginForm.module.scss";
+import classes from "./../../styles/LoginForm.module.scss";
 import AuthContext from "@/store/auth-context";
 import { useRouter } from "next/router";
 

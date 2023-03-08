@@ -1,0 +1,81 @@
+@import "./mixins";
+@import "./vars";
+
+.profile-container {
+  @extend %container;
+  display: block;
+  text-align: center;
+
+  button {
+    @extend %btn;
+    display: inline-block;
+    margin: 2.5px;
+  }
+
+  ul {
+    list-style: none;
+    text-align: center;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      .habit-name-placeholder {
+        min-width: 100px;
+      }
+    }
+  }
+
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@include desktop() {
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+
+    .name-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .habits-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .habit-name-placeholder {
+          min-width: 150px;
+        }
+      }
+    }
+
+    button {
+      font-size: 24px;
+    }
+
+    .habit-name-placeholder {
+      min-width: 100px;
+    }
+  }
+}
