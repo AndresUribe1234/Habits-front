@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useState, useRef } from "react";
 import AuthContext from "@/store/auth-context";
-import { loggedInFxn } from "@/util/helperFxn";
 import Link from "next/link";
 import classes from "./../styles/Profile.module.scss";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
@@ -16,15 +15,6 @@ const Profile = () => {
   const nameRef = useRef();
 
   const authCtx = useContext(AuthContext);
-
-  useEffect(() => {
-    const authObject = loggedInFxn();
-    if (authObject && authObject.loggedIn) {
-      authCtx.logInFnx(true);
-      authCtx.tokenFnx(authObject.token);
-      authCtx.userFnx(authObject.user);
-    }
-  }, []);
 
   if (!authCtx.authObject.isLogIn) {
     return (

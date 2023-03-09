@@ -1,18 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import { loggedInFxn } from "@/util/helperFxn";
 import Link from "next/link";
 
 const Feed = () => {
   const authCtx = useContext(AuthContext);
-  useEffect(() => {
-    const authObject = loggedInFxn();
-    if (authObject && authObject.loggedIn) {
-      authCtx.logInFnx(true);
-      authCtx.tokenFnx(authObject.token);
-      authCtx.userFnx(authObject.user);
-    }
-  }, []);
 
   if (!authCtx.authObject.isLogIn) {
     return (
@@ -22,7 +13,22 @@ const Feed = () => {
       </h1>
     );
   }
-  return <h1>Feed page</h1>;
+
+  return (
+    <div>
+      <h1>Feed page</h1>
+      <h1>
+        {!authCtx.authObject.user ? "loading..." : authCtx.authObject.user}
+      </h1>
+      <button
+        onClick={() => {
+          console.log(authCtx);
+        }}
+      >
+        Console log context
+      </button>
+    </div>
+  );
 };
 
 export default Feed;

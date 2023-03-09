@@ -51,6 +51,8 @@ const LoginForm = () => {
         );
         setIsLogin(true);
         authCtx.logInFnx(true);
+        authCtx.tokenFnx(data.token);
+        authCtx.userFnx(data.data.user.email);
         router.push("/feed");
       }
     } catch (err) {
@@ -79,7 +81,6 @@ const LoginForm = () => {
       if (response.status === 200) {
         emailRef.current.value = "";
         passwordRef.current.value = "";
-        authCtx.logInFnx(true);
         localStorage.setItem(
           "authObject",
           JSON.stringify({
@@ -88,6 +89,9 @@ const LoginForm = () => {
             user: data.data.user.email,
           })
         );
+        authCtx.logInFnx(true);
+        authCtx.tokenFnx(data.token);
+        authCtx.userFnx(data.data.user.email);
         router.push("/feed");
       }
     } catch (err) {

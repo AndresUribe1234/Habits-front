@@ -1,18 +1,9 @@
 import Head from "next/head";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import { loggedInFxn } from "./../util/helperFxn";
 
 export default function Home() {
   const authCtx = useContext(AuthContext);
-  useEffect(() => {
-    const authObject = loggedInFxn();
-    if (authObject && authObject.loggedIn) {
-      authCtx.logInFnx(true);
-      authCtx.tokenFnx(authObject.token);
-      authCtx.userFnx(authObject.user);
-    }
-  }, []);
 
   return (
     <React.Fragment>
