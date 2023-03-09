@@ -22,7 +22,7 @@ const Feed = () => {
       </h1>
       <button
         onClick={() => {
-          console.log(authCtx);
+          console.log(authCtx.authObject);
         }}
       >
         Console log context

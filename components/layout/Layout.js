@@ -8,10 +8,36 @@ function Layout(props) {
 
   useEffect(() => {
     const authObject = loggedInFxn();
+    const fetchUser = async function () {
+      try {
+        const objectOptions = {
+          headers: {
+            Authorization: "Bearer " + authObject.token,
+          },
+        };
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/profile/${authObject.user}`,
+          objectOptions
+        );
+
+        const data = await response.json();
+
+        return data;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     if (authObject && authObject.loggedIn) {
       authCtx.logInFnx(true);
       authCtx.tokenFnx(authObject.token);
       authCtx.userFnx(authObject.user);
+      (async () => {
+        const activeUser = await fetchUser();
+        authCtx.habitsFnx(activeUser.data.user.habits);
+        authCtx.nameFnx(activeUser.data.user.name);
+      })();
     }
   }, []);
 
