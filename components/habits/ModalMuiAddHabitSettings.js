@@ -23,10 +23,13 @@ export default function BasicModal(props) {
   const handleClose = () => setOpen(false);
   const newHabitRef = React.useRef();
 
-  const addHabitHandler = (event) => {
-    event.preventDefault();
+  const addHabitHandler = () => {
     const habitValueEntered = newHabitRef.current.value.trim();
     const currentHabits = props.data;
+
+    if (event.key === "Enter") {
+      console.log("hey event hello");
+    }
     if (currentHabits.includes(habitValueEntered)) {
       setHabitAlreadyExist(true);
       setInputError(true);
@@ -38,6 +41,7 @@ export default function BasicModal(props) {
       setInputError(true);
       return;
     }
+
     props.onAddHabit(habitValueEntered);
     setHabitAlreadyExist(false);
     setInputError(false);
@@ -56,10 +60,7 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form
-            className={classes["add-habit-form"]}
-            onSubmit={addHabitHandler}
-          >
+          <div className={classes["add-habit-form"]}>
             <span>Add Habit</span>
             <input ref={newHabitRef}></input>
             {inputError && (
@@ -67,14 +68,15 @@ export default function BasicModal(props) {
                 habitAlreadyExist ? "You already have this habit. " : ""
               }Please enter valid habit!`}</p>
             )}
-
             <div>
-              <button type="submit">Add</button>
+              <button type="button" onClick={addHabitHandler}>
+                Add
+              </button>
               <button type="button" onClick={handleClose}>
                 Close
               </button>
             </div>
-          </form>
+          </div>
         </Box>
       </Modal>
     </div>

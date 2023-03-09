@@ -17,9 +17,7 @@
   }
 
   input {
-    min-height: 30px;
-    border: 1px solid black;
-    padding: 5px;
+    @extend %input;
   }
 }
 

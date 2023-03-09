@@ -11,15 +11,14 @@
       display: block;
       padding: 2.5px;
     }
-    input {
-      border-radius: 4px;
-      padding: 2px;
-      border: 1px solid;
-    }
   }
 
   button {
     @extend %btn;
+  }
+
+  input {
+    @extend %input;
   }
 
   .switch-btn-func {
@@ -35,14 +34,6 @@
     font-size: 24px;
     width: 70vw;
     margin: 10px auto 0 auto;
-
-    input {
-      height: 24px;
-    }
-
-    button {
-      font-size: 24px;
-    }
 
     .switch-btn-func {
       font-size: 16px;

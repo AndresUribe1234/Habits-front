@@ -35,5 +35,17 @@ $desktop-display-font-size: 64px;
 
   @include desktop() {
     min-width: 100px;
+    font-size: 24px;
+  }
+}
+
+%input {
+  min-height: 30px;
+  padding: 5px;
+  margin: 2.5px;
+  border-radius: 4px;
+  border: 1px solid;
+
+  @include desktop() {
   }
 }

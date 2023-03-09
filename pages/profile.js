@@ -10,8 +10,6 @@ const DUMMY_HABITS = ["run", "read", "study"];
 const DUMMY_NAME = "Mariana";
 
 const Profile = () => {
-  const [editingName, setEditingName] = useState(false);
-  const [editingHabits, setEditingHabits] = useState(false);
   const [editingProfil, setEditingProfile] = useState(false);
   const [habits, setHabits] = useState(DUMMY_HABITS);
   const [name, setName] = useState(DUMMY_NAME);
@@ -37,26 +35,31 @@ const Profile = () => {
     );
   }
 
-  const editNameHandler = (event) => {
-    console.log(editingName);
-    console.log("before change in state", event.target);
-    setEditingName((prev) => !prev);
-
-    console.log("after change in state", event.target);
-    console.log(editingName);
-  };
-
   const editProfileHandler = () => {
     setEditingProfile((prev) => !prev);
   };
 
   const addHabitHandler = (newHabbit) => {
-    console.log(newHabbit);
     setHabits((prev) => [...prev, newHabbit]);
   };
 
+  const deleteHabitHandler = (event) => {
+    const habitToDelete = event.currentTarget.dataset.habit;
+    const newHabitsArray = habits.filter((ele) => ele !== habitToDelete);
+    setHabits([...newHabitsArray]);
+  };
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    const nameEntered = nameRef.current.value;
+    setName(nameEntered);
+    setEditingProfile(false);
+    console.log("form sent");
+    console.log(habits, nameEntered);
+  };
+
   return (
-    <form className={classes["profile-container"]}>
+    <form className={classes["profile-container"]} onSubmit={formSubmitHandler}>
       <div className={classes["name-container"]}>
         <span>Name</span>
         {!editingProfil ? (
@@ -72,7 +75,12 @@ const Profile = () => {
             <li key={ele}>
               <span className={classes["habit-name-placeholder"]}>{ele}</span>
               {editingProfil && (
-                <button className={classes["delete-btn"]} type="button">
+                <button
+                  className={classes["delete-btn"]}
+                  type="button"
+                  onClick={deleteHabitHandler}
+                  data-habit={ele}
+                >
                   <DeleteRoundedIcon />
                 </button>
               )}

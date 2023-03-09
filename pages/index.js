@@ -13,9 +13,7 @@ export default function Home() {
       authCtx.userFnx(authObject.user);
     }
   }, []);
-  const ctxShowHandler = () => {
-    console.log(authCtx);
-  };
+
   return (
     <React.Fragment>
       <Head>
@@ -24,8 +22,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p>Home page</p>
-      <button onClick={ctxShowHandler}>console log context</button>
+      <h1>Home page</h1>
     </React.Fragment>
   );
 }
