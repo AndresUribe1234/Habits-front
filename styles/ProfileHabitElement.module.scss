@@ -1,0 +1,14 @@
+@import "./mixins";
+@import "./vars";
+
+.habit-container {
+  button {
+    min-width: 20px;
+    border: none;
+    background-color: transparent;
+  }
+
+  .habit-name-placeholder {
+    min-width: 200px;
+  }
+}

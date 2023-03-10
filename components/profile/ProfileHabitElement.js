@@ -1,5 +1,5 @@
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import classes from "./../../styles/Profile.module.scss";
+import classes from "./../../styles/ProfileHabitElement.module.scss";
 
 const ProfileHabitElement = (props) => {
   const deleteHabitHandler = (event) => {
@@ -8,11 +8,10 @@ const ProfileHabitElement = (props) => {
   };
 
   return (
-    <li key={props.habit}>
+    <li key={props.habit} className={classes["habit-container"]}>
       <span className={classes["habit-name-placeholder"]}>{props.habit}</span>
       {props.editingProfil && (
         <button
-          className={classes["delete-btn"]}
           type="button"
           onClick={deleteHabitHandler}
           data-habit={props.habit}

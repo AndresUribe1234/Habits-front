@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from "react";
 import AuthContext from "@/store/auth-context";
-import classes from "./../../styles/Profile.module.scss";
+import classes from "./../../styles/ProfileForm.module.scss";
 import ModalMuiAddHabitSettings from "./ModalMuiAddHabitSettings";
 import ProfileHabitElement from "./ProfileHabitElement";
 
@@ -37,17 +37,40 @@ const ProfileForm = () => {
     authCtx.habitsFnx(newHabitsArray);
   };
 
+  const updateUserData = async (userName, habitsArray) => {
+    try {
+      const objectOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authCtx.authObject.token,
+        },
+        body: JSON.stringify({ name: userName, habits: habitsArray }),
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/profile/${authCtx.authObject.user}`,
+        objectOptions
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const nameEntered = nameRef.current.value;
     authCtx.nameFnx(nameEntered);
     setEditingProfile(false);
+    updateUserData(nameEntered, authCtx.authObject.habits);
   };
 
   return (
     <form className={classes["profile-container"]} onSubmit={formSubmitHandler}>
       <div className={classes["name-container"]}>
-        <h3>Name</h3>
+        <h3 className={classes["field-placeholder"]}>Name</h3>
         {!editingProfil ? (
           <p>{profileName}</p>
         ) : (
@@ -56,7 +79,7 @@ const ProfileForm = () => {
       </div>
       <div className={classes["habits-container"]}>
         <ul>
-          <h3>Habits</h3>
+          <h3 className={classes["field-placeholder"]}>Habits</h3>
           {habitsArray.map((ele) => (
             <ProfileHabitElement
               habit={ele}
@@ -65,14 +88,12 @@ const ProfileForm = () => {
               key={ele}
             />
           ))}
-          <div className={classes["btn-container"]}>
-            {editingProfil && (
-              <ModalMuiAddHabitSettings
-                onAddHabit={addHabitHandler}
-                data={habitsArray}
-              />
-            )}
-          </div>
+          {editingProfil && (
+            <ModalMuiAddHabitSettings
+              onAddHabit={addHabitHandler}
+              data={habitsArray}
+            />
+          )}
         </ul>
       </div>
       <div className={classes["btn-container"]}>

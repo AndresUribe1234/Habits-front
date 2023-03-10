@@ -27,9 +27,6 @@ export default function BasicModal(props) {
     const habitValueEntered = newHabitRef.current.value.trim();
     const currentHabits = props.data;
 
-    if (event.key === "Enter") {
-      console.log("hey event hello");
-    }
     if (currentHabits.includes(habitValueEntered)) {
       setHabitAlreadyExist(true);
       setInputError(true);
@@ -50,7 +47,7 @@ export default function BasicModal(props) {
 
   return (
     <div>
-      <button onClick={handleOpen} type="button">
+      <button onClick={handleOpen} type="button" style={{ marginTop: "10px" }}>
         Add Habit
       </button>
       <Modal
