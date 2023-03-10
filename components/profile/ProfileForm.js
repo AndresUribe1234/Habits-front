@@ -12,25 +12,28 @@ const ProfileForm = () => {
   );
   const nameRef = useRef();
 
+  const userName = authCtx.authObject.name;
+
+  const habitsArray = authCtx.authObject.habits;
+
+  const profileName = userName ? userName : "User has not entered his name";
+
   const editProfileHandler = () => {
     setEditingProfile((prev) => !prev);
-    setHabitsBackupArray(authCtx.authObject.habits);
+    setHabitsBackupArray(habitsArray);
   };
 
   const cancelFormHandler = () => {
-    console.log(habitsBackupArray);
     setEditingProfile((prev) => !prev);
     authCtx.habitsFnx(habitsBackupArray);
   };
 
   const addHabitHandler = (newHabbit) => {
-    authCtx.habitsFnx([...authCtx.authObject.habits, newHabbit]);
+    authCtx.habitsFnx([...habitsArray, newHabbit]);
   };
 
   const deleteHabitHandler = (habit) => {
-    const newHabitsArray = authCtx.authObject.habits.filter(
-      (ele) => ele !== habit
-    );
+    const newHabitsArray = habitsArray.filter((ele) => ele !== habit);
     authCtx.habitsFnx(newHabitsArray);
   };
 
@@ -39,7 +42,6 @@ const ProfileForm = () => {
     const nameEntered = nameRef.current.value;
     authCtx.nameFnx(nameEntered);
     setEditingProfile(false);
-    console.log("form sent");
   };
 
   return (
@@ -47,19 +49,15 @@ const ProfileForm = () => {
       <div className={classes["name-container"]}>
         <h3>Name</h3>
         {!editingProfil ? (
-          <p>
-            {authCtx.authObject.name
-              ? authCtx.authObject.name
-              : "User has not entered his name"}
-          </p>
+          <p>{profileName}</p>
         ) : (
-          <input ref={nameRef} defaultValue={authCtx.authObject.name}></input>
+          <input ref={nameRef} defaultValue={userName}></input>
         )}
       </div>
       <div className={classes["habits-container"]}>
         <ul>
           <h3>Habits</h3>
-          {authCtx.authObject.habits.map((ele) => (
+          {habitsArray.map((ele) => (
             <ProfileHabitElement
               habit={ele}
               editingProfil={editingProfil}
@@ -71,7 +69,7 @@ const ProfileForm = () => {
             {editingProfil && (
               <ModalMuiAddHabitSettings
                 onAddHabit={addHabitHandler}
-                data={authCtx.authObject.habits}
+                data={habitsArray}
               />
             )}
           </div>
