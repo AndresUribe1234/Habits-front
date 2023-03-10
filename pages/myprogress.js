@@ -2,17 +2,13 @@ import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
 
 import Link from "next/link";
+import PleaseLogIn from "@/components/layout/PleaseLogIn";
 
 const MyProgress = () => {
   const authCtx = useContext(AuthContext);
 
   if (!authCtx.authObject.isLogIn) {
-    return (
-      <h1>
-        Please <Link href={"/login"}>Log in</Link> in order to have acces to the
-        app content
-      </h1>
-    );
+    return <PleaseLogIn />;
   }
   return <h1>MyProgress page</h1>;
 };

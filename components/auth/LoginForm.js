@@ -53,6 +53,8 @@ const LoginForm = () => {
         authCtx.logInFnx(true);
         authCtx.tokenFnx(data.token);
         authCtx.userFnx(data.data.user.email);
+        authCtx.habitsFnx(data.data.user.habits);
+        authCtx.nameFnx(data.data.user.name);
         router.push("/feed");
       }
     } catch (err) {
@@ -92,6 +94,8 @@ const LoginForm = () => {
         authCtx.logInFnx(true);
         authCtx.tokenFnx(data.token);
         authCtx.userFnx(data.data.user.email);
+        authCtx.habitsFnx(data.data.user.habits);
+        authCtx.nameFnx(data.data.user.name);
         router.push("/feed");
       }
     } catch (err) {

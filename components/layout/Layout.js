@@ -23,7 +23,8 @@ function Layout(props) {
 
         const data = await response.json();
 
-        return data;
+        authCtx.habitsFnx(data.data.user.habits);
+        authCtx.nameFnx(data.data.user.name);
       } catch (err) {
         console.log(err);
       }
@@ -33,11 +34,7 @@ function Layout(props) {
       authCtx.logInFnx(true);
       authCtx.tokenFnx(authObject.token);
       authCtx.userFnx(authObject.user);
-      (async () => {
-        const activeUser = await fetchUser();
-        authCtx.habitsFnx(activeUser.data.user.habits);
-        authCtx.nameFnx(activeUser.data.user.name);
-      })();
+      fetchUser();
     }
   }, []);
 
