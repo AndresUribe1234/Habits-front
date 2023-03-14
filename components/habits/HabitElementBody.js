@@ -51,7 +51,7 @@ const HabitElementBody = (props) => {
       </div>
       {authCtx.authObject.user === props.email && (
         <div>
-          <Link href="/myprogress">Edit</Link>
+          <Link href={`/registration-habit/${props.id}`}>Edit</Link>
         </div>
       )}
     </div>

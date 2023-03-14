@@ -27,7 +27,6 @@ const Habits = () => {
     }
   };
 
-  console.log(registrationArray);
   useEffect(() => {
     fetchAllRegistration();
   }, []);
@@ -35,7 +34,7 @@ const Habits = () => {
   return (
     <div className={classes["feed-container"]}>
       <button>
-        <Link href={"/addhabits"} className={classes["btn-link"]}>
+        <Link href={"/registration-habit"} className={classes["btn-link"]}>
           Add habits activity
         </Link>
       </button>

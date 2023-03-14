@@ -1,0 +1,80 @@
+@import "./mixins";
+@import "./vars";
+
+.add-habit-form {
+  @extend %container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    @extend %btn;
+    margin: 5px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  input {
+    border-radius: 4px;
+  }
+
+  .btn-container {
+    display: flex;
+    padding: 10px;
+  }
+
+  .habit-placeholder {
+    text-align: center;
+    display: inline-block;
+    min-width: 100px;
+  }
+
+  .date-input {
+    padding: 5px;
+  }
+
+  .date-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+
+    label {
+      padding: 0 10px 0 10px;
+    }
+  }
+
+  .habits-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  p {
+    padding: 10px;
+  }
+}
+
+@include desktop() {
+  .add-habit-form {
+    font-size: 24px;
+
+    input {
+      width: 20px;
+      height: 20px;
+      &:hover {
+        scale: 0.9;
+      }
+    }
+
+    .date-input {
+      min-width: 150px;
+      padding: 10px;
+    }
+  }
+}

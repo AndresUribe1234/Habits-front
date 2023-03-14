@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import AuthContext from "@/store/auth-context";
 import Link from "next/link";
 import classes from "./../../styles/AddHabitForm.module.scss";
@@ -9,6 +9,15 @@ const AddHabitForm = () => {
   const [habitsCheckbox, setHabitsCheckbox] = useState({});
   const dateRef = useRef();
   const router = useRouter();
+  const [resquestError, setResquestError] = useState(undefined);
+
+  useEffect(() => {
+    console.log("request error", resquestError);
+    console.log("request error condition", resquestError === false);
+    if (resquestError === false) {
+      router.push("/feed");
+    }
+  }, [resquestError]);
 
   let date = new Date(Date.now());
   date = date.toLocaleString("en-GB");
@@ -35,8 +44,14 @@ const AddHabitForm = () => {
       );
       const data = await response.json();
       console.log(data);
+      if (response.status === 400) {
+        throw new Error(data.err);
+      }
+      setResquestError(false);
+      console.log(data);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
+      setResquestError(true);
     }
   };
 
@@ -57,7 +72,6 @@ const AddHabitForm = () => {
       (ele) => habitsCheckbox[ele] % 2 !== 0
     );
     registerHabit(enteredDate, habitsToSubmit);
-    router.push("/feed");
   };
 
   return (
