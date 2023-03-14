@@ -1,0 +1,29 @@
+@import "./mixins";
+@import "./vars";
+
+.information-container {
+  .info-section {
+    text-align: center;
+    display: flex;
+    margin: 5px;
+    padding: 2.5px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+  .right-section {
+    display: inline-block;
+    min-width: 170px;
+  }
+  .left-section {
+    display: inline-block;
+    min-width: 170px;
+  }
+
+  .habit-tag {
+    font-weight: normal;
+  }
+
+  div {
+    text-align: center;
+  }
+}

@@ -1,0 +1,23 @@
+@import "./mixins";
+@import "./vars";
+
+.feed-container {
+  @extend %container;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+  }
+
+  button {
+    @extend %btn;
+  }
+
+  .btn-link {
+    text-decoration: none;
+    color: black;
+  }
+}

@@ -1,16 +1,16 @@
+import AddHabitForm from "@/components/habits/AddHabitForm";
 import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import Habits from "@/components/habits/Habits";
 import PleaseLogIn from "@/components/layout/PleaseLogIn";
 
-const Feed = () => {
+const AddHabits = () => {
   const authCtx = useContext(AuthContext);
 
   if (!authCtx.authObject.isLogIn) {
     return <PleaseLogIn />;
   }
 
-  return <Habits />;
+  return <AddHabitForm />;
 };
 
-export default Feed;
+export default AddHabits;

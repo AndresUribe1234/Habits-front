@@ -13,13 +13,6 @@ const Profile = () => {
   return (
     <Fragment>
       <ProfileForm />
-      <button
-        onClick={() => {
-          console.log(authCtx.authObject);
-        }}
-      >
-        show context
-      </button>
     </Fragment>
   );
 };
