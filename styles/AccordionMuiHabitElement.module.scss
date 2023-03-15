@@ -1,0 +1,8 @@
+@import "./mixins";
+@import "./vars";
+
+@include desktop() {
+  .li-accordion-container {
+    min-width: 500px;
+  }
+}

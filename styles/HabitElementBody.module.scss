@@ -27,3 +27,19 @@
     text-align: center;
   }
 }
+
+@include desktop() {
+  .information-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .right-section {
+      min-width: 200px;
+    }
+    .left-section {
+      min-width: 200px;
+    }
+  }
+}

@@ -2,8 +2,6 @@
 @import "./vars";
 
 .feed-container {
-  @extend %container;
-
   ul {
     display: flex;
     flex-direction: column;

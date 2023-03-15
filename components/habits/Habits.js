@@ -58,21 +58,34 @@ const Habits = () => {
       {error && <ErrorMessage error={errorMessage} />}
       {!fetchingData && !error && (
         <ul>
-          {registrationArray.map((ele) => (
-            <AccordionMuiHabitElemnet
-              habit={ele.user.name}
-              date={ele.registrationFinalDate}
-              status={ele.completionStatus}
-              key={Math.random()}
-              habitInformation={{
-                completion: ele.completionPercentage,
-                allHabits: ele.userHabitsGoalDayRegistration,
-                habitsDone: ele.userHabitsAchievedDayRegistration,
-              }}
-              id={ele._id}
-              email={ele.user.email}
-            />
-          ))}
+          {registrationArray.map((ele) => {
+            let color;
+            if (ele.completionStatus === "Success") {
+              color = "#9ce79c";
+            }
+            if (ele.completionStatus === "In progress") {
+              color = "lightyellow";
+            }
+            if (ele.completionStatus === "Next time you will do better") {
+              color = "lightsalmon";
+            }
+            return (
+              <AccordionMuiHabitElemnet
+                habit={ele.user.name}
+                date={ele.registrationFinalDate}
+                status={ele.completionStatus}
+                key={Math.random()}
+                habitInformation={{
+                  completion: ele.completionPercentage,
+                  allHabits: ele.userHabitsGoalDayRegistration,
+                  habitsDone: ele.userHabitsAchievedDayRegistration,
+                }}
+                id={ele._id}
+                email={ele.user.email}
+                color={color}
+              />
+            );
+          })}
         </ul>
       )}
     </div>
