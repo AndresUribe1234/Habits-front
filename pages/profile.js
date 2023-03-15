@@ -1,7 +1,7 @@
 import { useContext, Fragment } from "react";
 import AuthContext from "@/store/auth-context";
 import ProfileForm from "@/components/profile/ProfileForm";
-import PleaseLogIn from "@/components/layout/PleaseLogIn";
+import PleaseLogIn from "@/components/Other/PleaseLogIn";
 
 const Profile = () => {
   const authCtx = useContext(AuthContext);

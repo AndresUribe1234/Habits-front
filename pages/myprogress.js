@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
 
 import Link from "next/link";
-import PleaseLogIn from "@/components/layout/PleaseLogIn";
+import PleaseLogIn from "@/components/Other/PleaseLogIn";
 
 const MyProgress = () => {
   const authCtx = useContext(AuthContext);
