@@ -7,6 +7,8 @@ import ProfileHabitElement from "./ProfileHabitElement";
 const ProfileForm = () => {
   const authCtx = useContext(AuthContext);
   const [editingProfil, setEditingProfile] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [habitsBackupArray, setHabitsBackupArray] = useState(
     authCtx.authObject.habits
   );
@@ -53,6 +55,15 @@ const ProfileForm = () => {
         objectOptions
       );
       const data = await response.json();
+
+      if (response.status === 200) {
+        setEditingProfile(false);
+        setError(false);
+      }
+      if (response.status !== 200) {
+        setError(true);
+        setErrorMessage(data.err);
+      }
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -63,7 +74,7 @@ const ProfileForm = () => {
     event.preventDefault();
     const nameEntered = nameRef.current.value;
     authCtx.nameFnx(nameEntered);
-    setEditingProfile(false);
+
     updateUserData(nameEntered, authCtx.authObject.habits);
   };
 
@@ -96,6 +107,9 @@ const ProfileForm = () => {
           )}
         </ul>
       </div>
+      {error && (
+        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
+      )}
       <div className={classes["btn-container"]}>
         {editingProfil && <button type="submit">Submit</button>}
         {editingProfil && (

@@ -15,6 +15,11 @@
   input {
     @extend %input;
   }
+
+  .err-message {
+    color: lightcoral;
+  }
+
   .name-container {
     margin: 20px;
   }
