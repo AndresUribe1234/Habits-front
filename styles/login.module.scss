@@ -1,0 +1,29 @@
+@import "./mixins";
+@import "./vars";
+
+.form-container {
+  @extend %container;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .switch-btn-func {
+    background-color: white;
+    font-size: 12px;
+    border: none;
+    text-decoration: underline;
+  }
+}
+
+@include desktop() {
+  .form-container {
+    font-size: 24px;
+    width: 70vw;
+    margin: 10px auto 0 auto;
+
+    .switch-btn-func {
+      font-size: 16px;
+    }
+  }
+}

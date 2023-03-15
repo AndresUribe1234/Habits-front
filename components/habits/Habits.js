@@ -3,6 +3,7 @@ import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/Habits.module.scss";
 import AccordionMuiHabitElemnet from "./AccordionMuiHabitElement";
 import Link from "next/link";
+import { Accordion, Modal, Typography } from "@mui/material";
 
 const Habits = () => {
   const authCtx = useContext(AuthContext);
@@ -38,6 +39,7 @@ const Habits = () => {
           Add habits activity
         </Link>
       </button>
+
       <ul>
         {registrationArray.map((ele) => (
           <AccordionMuiHabitElemnet

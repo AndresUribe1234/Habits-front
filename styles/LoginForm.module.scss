@@ -2,7 +2,6 @@
 @import "./vars";
 
 .auth-login-form {
-  @extend %container;
   text-align: center;
 
   div {
@@ -21,11 +20,8 @@
     @extend %input;
   }
 
-  .switch-btn-func {
-    background-color: white;
-    font-size: 12px;
-    border: none;
-    text-decoration: underline;
+  .err-message {
+    color: lightcoral;
   }
 }
 
@@ -34,9 +30,5 @@
     font-size: 24px;
     width: 70vw;
     margin: 10px auto 0 auto;
-
-    .switch-btn-func {
-      font-size: 16px;
-    }
   }
 }

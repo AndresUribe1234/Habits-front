@@ -12,6 +12,10 @@ const MainNavigaton = () => {
 
   const logOutHandler = () => {
     authCtx.logInFnx(false);
+    authCtx.habitsFnx([]);
+    authCtx.nameFnx("");
+    authCtx.tokenFnx("");
+    authCtx.userFnx("");
     localStorage.removeItem("authObject");
     router.push("/");
   };

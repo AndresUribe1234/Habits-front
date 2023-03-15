@@ -1,25 +1,35 @@
-import React, { useRef, useContext, useState } from "react";
-import classes from "./../../styles/LoginForm.module.scss";
+import { useRef, useContext, useState } from "react";
 import AuthContext from "@/store/auth-context";
+import classes from "./../../styles/LoginForm.module.scss";
 import { useRouter } from "next/router";
 
-const LoginForm = () => {
+const CreateAccountForm = () => {
   const router = useRouter();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const authCtx = useContext(AuthContext);
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const loginAPICall = async function (emailBody, passwordBody) {
+  const singupAPICall = async function (
+    emailBody,
+    passwordBody,
+    passwordConfirmBody
+  ) {
     try {
       const object = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailBody, password: passwordBody }),
+        body: JSON.stringify({
+          email: emailBody,
+          password: passwordBody,
+          passwordConfirm: passwordConfirmBody,
+        }),
       };
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/login`,
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/signup`,
         object
       );
 
@@ -33,6 +43,7 @@ const LoginForm = () => {
       if (response.status === 200) {
         emailRef.current.value = "";
         passwordRef.current.value = "";
+        passwordConfirmRef.current.value = "";
         localStorage.setItem(
           "authObject",
           JSON.stringify({
@@ -44,22 +55,31 @@ const LoginForm = () => {
         authCtx.logInFnx(true);
         authCtx.tokenFnx(data.token);
         authCtx.userFnx(data.data.user.email);
-        authCtx.habitsFnx(data.data.user.habits);
-        authCtx.nameFnx(data.data.user.name);
-        router.push("/feed");
+        router.push("/profile");
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  function formSubmitHandler(event) {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
     const usernameEnteredValue = emailRef.current.value;
     const passwordEnteredValue = passwordRef.current.value;
+    const passwordConfirmEnteredValue = passwordConfirmRef.current.value;
 
-    loginAPICall(usernameEnteredValue, passwordEnteredValue);
-  }
+    if (passwordEnteredValue !== passwordConfirmEnteredValue) {
+      setError(true);
+      setErrorMessage("Passwords entered do not match!");
+      return;
+    }
+
+    singupAPICall(
+      usernameEnteredValue,
+      passwordEnteredValue,
+      passwordConfirmEnteredValue
+    );
+  };
 
   function disappearErrHandler() {
     setError(false);
@@ -67,7 +87,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={formSubmitHandler} className={classes["auth-login-form"]}>
-      <p>Login</p>
+      <p>Create new account</p>
       <div>
         <label>Email</label>
         <input
@@ -85,12 +105,21 @@ const LoginForm = () => {
           onFocus={disappearErrHandler}
         ></input>
       </div>
+      <div>
+        <label>Password Confirm</label>
+        <input
+          ref={passwordConfirmRef}
+          type={"password"}
+          minLength="8"
+          onFocus={disappearErrHandler}
+        ></input>
+      </div>
       {error && (
         <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
       )}
-      <button type="submit">Login</button>
+      <button type="submit">Create new account</button>
     </form>
   );
 };
 
-export default LoginForm;
+export default CreateAccountForm;
