@@ -41,7 +41,7 @@ const AddHabitForm = () => {
 
       if (response.status === 200) {
         setSubmitingForm(false);
-        router.push("/feed");
+        router.push(`/${router.query.from}`);
       }
       if (response.status !== 200) {
         setSubmitingForm(false);
@@ -104,7 +104,7 @@ const AddHabitForm = () => {
       <div className={classes["btn-container"]}>
         <button type={"submit"}>Submit</button>
         <button type={"button"}>
-          <Link href={"/feed"}>Cancel</Link>
+          <Link href={`/${router.query.from}`}>Cancel</Link>
         </button>
       </div>
     </form>

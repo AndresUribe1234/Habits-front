@@ -6,7 +6,7 @@ import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
 
-const Habits = () => {
+const HabitsFeed = () => {
   const authCtx = useContext(AuthContext);
   const [registrationArray, setRegistrationArray] = useState([]);
   const [fetchingData, setFetchingData] = useState(true);
@@ -50,7 +50,10 @@ const Habits = () => {
   return (
     <div className={classes["feed-container"]}>
       <button>
-        <Link href={"/registration-habit"} className={classes["btn-link"]}>
+        <Link
+          href={"/registration-habit?from=feed"}
+          className={classes["btn-link"]}
+        >
           Add habits activity
         </Link>
       </button>
@@ -92,4 +95,4 @@ const Habits = () => {
   );
 };
 
-export default Habits;
+export default HabitsFeed;

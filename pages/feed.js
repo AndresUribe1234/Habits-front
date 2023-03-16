@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import Habits from "@/components/habits/Habits";
+import HabitsFeed from "@/components/habits/HabitsFeed";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
 
 const Feed = () => {
@@ -10,7 +10,7 @@ const Feed = () => {
     return <PleaseLogIn />;
   }
 
-  return <Habits />;
+  return <HabitsFeed />;
 };
 
 export default Feed;

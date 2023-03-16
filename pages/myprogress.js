@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
+import HabitsProfile from "./../components/habits/HabitsProfile";
 
 import Link from "next/link";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
@@ -10,7 +11,7 @@ const MyProgress = () => {
   if (!authCtx.authObject.isLogIn) {
     return <PleaseLogIn />;
   }
-  return <h1>MyProgress page</h1>;
+  return <HabitsProfile />;
 };
 
 export default MyProgress;
