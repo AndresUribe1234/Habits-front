@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/Habits.module.scss";
-import AccordionMuiHabitElemnet from "./AccordionMuiHabitElement";
+import AccordionMuiHabitElement from "./AccordionMuiHabitElement";
 import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
@@ -70,7 +70,7 @@ const Habits = () => {
               color = "lightsalmon";
             }
             return (
-              <AccordionMuiHabitElemnet
+              <AccordionMuiHabitElement
                 habit={ele.user.name}
                 date={ele.registrationFinalDate}
                 status={ele.completionStatus}

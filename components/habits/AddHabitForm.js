@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState, useRef } from "react";
 import AuthContext from "@/store/auth-context";
 import Link from "next/link";
 import classes from "./../../styles/AddHabitForm.module.scss";
@@ -7,17 +7,11 @@ import { useRouter } from "next/router";
 const AddHabitForm = () => {
   const authCtx = useContext(AuthContext);
   const [habitsCheckbox, setHabitsCheckbox] = useState({});
+  const [submitingForm, setSubmitingForm] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const dateRef = useRef();
   const router = useRouter();
-  const [resquestError, setResquestError] = useState(undefined);
-
-  useEffect(() => {
-    console.log("request error", resquestError);
-    console.log("request error condition", resquestError === false);
-    if (resquestError === false) {
-      router.push("/feed");
-    }
-  }, [resquestError]);
 
   let date = new Date(Date.now());
   date = date.toLocaleString("en-GB");
@@ -37,21 +31,25 @@ const AddHabitForm = () => {
         },
         body: JSON.stringify({ habits: habits, registrationFinalDate: date }),
       };
-
+      setError(false);
+      setSubmitingForm(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NODE_URL}/api/registration/single-user/`,
         objectOptions
       );
       const data = await response.json();
-      console.log(data);
-      if (response.status === 400) {
-        throw new Error(data.err);
+
+      if (response.status === 200) {
+        setSubmitingForm(false);
+        router.push("/feed");
       }
-      setResquestError(false);
-      console.log(data);
+      if (response.status !== 200) {
+        setSubmitingForm(false);
+        setError(true);
+        setErrorMessage(data.err);
+      }
     } catch (err) {
       console.log(err.message);
-      setResquestError(true);
     }
   };
 
@@ -99,6 +97,10 @@ const AddHabitForm = () => {
           </div>
         ))}
       </div>
+      {submitingForm && <p>Form submiting...</p>}
+      {!submitingForm && error && (
+        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
+      )}
       <div className={classes["btn-container"]}>
         <button type={"submit"}>Submit</button>
         <button type={"button"}>

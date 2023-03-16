@@ -10,6 +10,7 @@ const LoginForm = () => {
   const authCtx = useContext(AuthContext);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [submitingForm, setSubmitingForm] = useState(false);
 
   const loginAPICall = async function (emailBody, passwordBody) {
     try {
@@ -18,6 +19,7 @@ const LoginForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailBody, password: passwordBody }),
       };
+      setSubmitingForm(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/login`,
         object
@@ -26,6 +28,7 @@ const LoginForm = () => {
       const data = await response.json();
 
       if (response.status !== 200) {
+        setSubmitingForm(false);
         setErrorMessage(data.err);
         setError(true);
       }
@@ -85,7 +88,8 @@ const LoginForm = () => {
           onFocus={disappearErrHandler}
         ></input>
       </div>
-      {error && (
+      {submitingForm && <p>Logging in...</p>}
+      {!submitingForm && error && (
         <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
       )}
       <button type="submit">Login</button>

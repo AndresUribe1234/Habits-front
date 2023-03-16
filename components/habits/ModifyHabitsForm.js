@@ -6,6 +6,9 @@ import AuthContext from "@/store/auth-context";
 const ModifyHabitsForm = (props) => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
+  const [submitingForm, setSubmitingForm] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const { data } = props;
   const habitsAchieved = data.userHabitsAchievedDayRegistration;
   const [habitsCheckbox, setHabitsCheckbox] = useState(
@@ -27,6 +30,9 @@ const ModifyHabitsForm = (props) => {
         body: JSON.stringify({ habits: habits }),
       };
 
+      setError(false);
+      setSubmitingForm(true);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NODE_URL}/api/registration/entry/${props.id}`,
         objectOptions
@@ -34,10 +40,15 @@ const ModifyHabitsForm = (props) => {
 
       const data = await response.json();
 
-      if (response.status === 400) {
-        throw new Error(data.err);
+      if (response.status === 200) {
+        setSubmitingForm(false);
+        router.push("/feed");
       }
-      router.push("/feed");
+      if (response.status !== 200) {
+        setSubmitingForm(false);
+        setError(true);
+        setErrorMessage(data.err);
+      }
     } catch (err) {
       console.log(err.message);
     }
@@ -55,12 +66,11 @@ const ModifyHabitsForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log("hello world");
 
     const habitsToSubmit = Object.keys(habitsCheckbox).filter(
       (ele) => habitsCheckbox[ele] % 2 !== 0
     );
-    console.log(habitsToSubmit);
+
     updatingHabit(habitsToSubmit);
   };
 
@@ -81,6 +91,10 @@ const ModifyHabitsForm = (props) => {
           </div>
         ))}
       </div>
+      {submitingForm && <p>Form submiting...</p>}
+      {!submitingForm && error && (
+        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
+      )}
       <div className={classes["btn-container"]}>
         <button type="submit">Submit</button>
         <button type="button" onClick={() => router.back()}>

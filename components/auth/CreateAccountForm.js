@@ -12,6 +12,7 @@ const CreateAccountForm = () => {
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [submitingForm, setSubmitingForm] = useState(false);
 
   const singupAPICall = async function (
     emailBody,
@@ -28,6 +29,9 @@ const CreateAccountForm = () => {
           passwordConfirm: passwordConfirmBody,
         }),
       };
+
+      setError(false);
+      setSubmitingForm(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/signup`,
         object
@@ -36,6 +40,7 @@ const CreateAccountForm = () => {
       const data = await response.json();
 
       if (response.status !== 200) {
+        setSubmitingForm(false);
         setErrorMessage(data.err);
         setError(true);
       }
@@ -114,7 +119,8 @@ const CreateAccountForm = () => {
           onFocus={disappearErrHandler}
         ></input>
       </div>
-      {error && (
+      {submitingForm && <p>Creating account...</p>}
+      {!submitingForm && error && (
         <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
       )}
       <button type="submit">Create new account</button>
