@@ -47,7 +47,7 @@ const HabitElementBody = (props) => {
       </div>
       <div className={classes["info-section"]}>
         <p className={classes["left-section"]}>Current streak</p>
-        <p className={classes["right-section"]}>undefined</p>
+        <p className={classes["right-section"]}>{props.streak}</p>
       </div>
       {authCtx.authObject.user === props.email && (
         <div>
