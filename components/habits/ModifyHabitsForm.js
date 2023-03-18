@@ -42,7 +42,7 @@ const ModifyHabitsForm = (props) => {
 
       if (response.status === 200) {
         setSubmitingForm(false);
-        router.push("/feed");
+        router.back();
       }
       if (response.status !== 200) {
         setSubmitingForm(false);
