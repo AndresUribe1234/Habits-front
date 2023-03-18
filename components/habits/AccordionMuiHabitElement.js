@@ -36,6 +36,7 @@ export default function SimpleAccordion(props) {
             habitInformation={props.habitInformation}
             id={props.id}
             email={props.email}
+            streak={props.streak}
           />
         </AccordionDetails>
       </Accordion>

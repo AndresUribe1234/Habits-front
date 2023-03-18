@@ -86,6 +86,7 @@ const HabitsFeed = () => {
                 id={ele._id}
                 email={ele.user.email}
                 color={color}
+                streak={ele.currentStreak}
               />
             );
           })}
