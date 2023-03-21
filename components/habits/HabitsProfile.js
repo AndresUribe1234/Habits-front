@@ -5,6 +5,7 @@ import AccordionMuiHabitElement from "./AccordionMuiHabitElement";
 import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
+import { PropaneSharp } from "@mui/icons-material";
 
 const HaitsProfile = () => {
   const authCtx = useContext(AuthContext);

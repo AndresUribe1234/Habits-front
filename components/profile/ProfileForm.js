@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/ProfileForm.module.scss";
 import ModalMuiAddHabitSettings from "./ModalMuiAddHabitSettings";
@@ -12,6 +12,7 @@ const ProfileForm = () => {
   const [habitsBackupArray, setHabitsBackupArray] = useState(
     authCtx.authObject.habits
   );
+  const [uniqueHabits, setUniqueHabits] = useState([]);
   const nameRef = useRef();
 
   const userName = authCtx.authObject.name;
@@ -19,6 +20,10 @@ const ProfileForm = () => {
   const habitsArray = authCtx.authObject.habits;
 
   const profileName = userName ? userName : "User has not entered his name";
+
+  useEffect(() => {
+    getUniqueHabits();
+  }, []);
 
   const editProfileHandler = () => {
     setEditingProfile((prev) => !prev);
@@ -70,6 +75,31 @@ const ProfileForm = () => {
     }
   };
 
+  const getUniqueHabits = async (userName, habitsArray) => {
+    try {
+      const objectOptions = {
+        headers: {
+          Authorization: "Bearer " + authCtx.authObject.token,
+        },
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/registration/unique-habits`,
+        objectOptions
+      );
+      const data = await response.json();
+
+      if (response.status === 200) {
+        setUniqueHabits(data.data.uniqueHabits);
+      }
+      if (response.status !== 200) {
+        console.log(data.err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const formSubmitHandler = (event) => {
     event.preventDefault();
     const nameEntered = nameRef.current.value;
@@ -103,6 +133,7 @@ const ProfileForm = () => {
             <ModalMuiAddHabitSettings
               onAddHabit={addHabitHandler}
               data={habitsArray}
+              suggestions={uniqueHabits}
             />
           )}
         </ul>

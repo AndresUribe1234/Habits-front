@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import classes from "./../../styles/ModalMuiAddHabbitSettings.module.scss";
+import HabitAutocomplete from "./AutocompleteHabitEntered";
 
 const style = {
   position: "absolute",
@@ -19,12 +20,16 @@ export default function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
   const [habitAlreadyExist, setHabitAlreadyExist] = React.useState(false);
   const [inputError, setInputError] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const newHabitRef = React.useRef();
+
+  const getInputHandler = (value) => {
+    setInputValue(value);
+  };
 
   const addHabitHandler = () => {
-    const habitValueEntered = newHabitRef.current.value.trim();
+    const habitValueEntered = inputValue.trim();
     const currentHabits = props.data;
 
     if (currentHabits.includes(habitValueEntered)) {
@@ -59,7 +64,10 @@ export default function BasicModal(props) {
         <Box sx={style}>
           <div className={classes["add-habit-form"]}>
             <span>Add Habit</span>
-            <input ref={newHabitRef}></input>
+            <HabitAutocomplete
+              suggestions={props.suggestions}
+              onGetInputValue={getInputHandler}
+            />
             {inputError && (
               <p>{`${
                 habitAlreadyExist ? "You already have this habit. " : ""

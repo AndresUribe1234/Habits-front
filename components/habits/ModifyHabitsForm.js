@@ -40,6 +40,9 @@ const ModifyHabitsForm = (props) => {
 
       const data = await response.json();
 
+      console.log("from edit form component");
+      console.log(data);
+
       if (response.status === 200) {
         setSubmitingForm(false);
         router.back();
