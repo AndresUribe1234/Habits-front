@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import AuthContext from "@/store/auth-context";
 import BasicMenuMui from "./BasicMenuMui";
 import ExpandableNav from "./ExpandableNav";
+import MenuListOwn from "./MenuListOwn";
 
 const MainNavigaton = () => {
   const router = useRouter();
@@ -68,6 +69,7 @@ const MainNavigaton = () => {
         </Link>
       </li>
       <BasicMenuMui onLogout={logOutHandler} />
+      <MenuListOwn />
     </React.Fragment>
   );
 

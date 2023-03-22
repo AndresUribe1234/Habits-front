@@ -57,6 +57,7 @@ export default function BasicMenu(props) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        sx={{ width: "100%" }}
       >
         <MenuItem onClick={handleClose} sx={componentStyling}>
           <Link href={"/profile"} className={classes.linksHeader}>

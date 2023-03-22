@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import AuthContext from "@/store/auth-context";
-import Link from "next/link";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
-import ExpandableNav from "@/components/layout/ExpandableNav";
+import MenuListOwn from "@/components/layout/MenuListOwn";
 
 const GlobalLeaderboard = () => {
   const authCtx = useContext(AuthContext);
@@ -11,10 +10,11 @@ const GlobalLeaderboard = () => {
     return <PleaseLogIn />;
   }
   return (
-    <>
+    <Fragment>
       <h1>GlobalLeaderboard page</h1>
-      <ExpandableNav />
-    </>
+      <MenuListOwn />
+      <p>Hello world</p>
+    </Fragment>
   );
 };
 
