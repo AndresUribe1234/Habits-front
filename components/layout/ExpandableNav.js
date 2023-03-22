@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import classes from "./../../styles/ExpandableNav.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
@@ -9,10 +9,6 @@ import MenuListOwn from "./MenuListOwn";
 function Navigation(props) {
   const [expanded, setExpanded] = useState(false);
   const router = useRouter();
-
-  const handleChildCoordinates = (coordinates) => {
-    setChildCoordinates(coordinates);
-  };
 
   const toggleExpansion = () => {
     setExpanded(!expanded);
@@ -53,7 +49,6 @@ function Navigation(props) {
             My Progess
           </Link>
         </li>
-        <MenuListOwn onLogout={props.onLogout} />
         <li className={classes["navigation__item"]}>
           <Link
             href={"/globalleaderboard"}
@@ -66,6 +61,7 @@ function Navigation(props) {
           </Link>
         </li>
         <BasicMenuMui onLogout={props.onLogout} />
+        <MenuListOwn onLogout={props.onLogout} />
       </ul>
     </nav>
   );
