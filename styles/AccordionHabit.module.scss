@@ -1,0 +1,53 @@
+.accordion-container {
+  display: inline-block;
+  flex-direction: column;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  //   scale: 1;
+  //   transition: scale 0.3s ease-in-out;
+
+  //   &.accordion-opened {
+  // transition: scale 0.3s ease-in-out;
+  // scale: 1.05;
+  //   }
+
+  &.success {
+    border-right: 12px solid #9ce79c;
+  }
+
+  &.inprogress {
+    border-right: 12px solid lightyellow;
+  }
+
+  &.nexttimeyouwilldobetter {
+    border-right: 12px solid lightsalmon;
+  }
+}
+.accordion-header-container {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  .accordion-header-title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .accordion-header-label {
+    display: flex;
+  }
+}
+.accordion-body-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+
+  &.show {
+    transition: max-height 0.5s ease-in-out;
+    max-height: 9999px;
+  }
+}

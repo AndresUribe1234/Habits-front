@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/Habits.module.scss";
-import AccordionMuiHabitElement from "./AccordionMuiHabitElement";
 import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
-import { PropaneSharp } from "@mui/icons-material";
+import AccordionHabit from "./AccordionHabit";
+import moment from "moment";
+import tz from "moment-timezone";
+import HabitElementBody from "./HabitElementBody";
 
 const HaitsProfile = () => {
   const authCtx = useContext(AuthContext);
@@ -62,33 +64,34 @@ const HaitsProfile = () => {
       {error && <ErrorMessage error={errorMessage} />}
       {!fetchingData && !error && (
         <ul>
-          {registrationArray.map((ele) => {
-            let color;
-            if (ele.completionStatus === "Success") {
-              color = "#9ce79c";
-            }
-            if (ele.completionStatus === "In progress") {
-              color = "lightyellow";
-            }
-            if (ele.completionStatus === "Next time you will do better") {
-              color = "lightsalmon";
-            }
+          {registrationArray.map((ele, index) => {
+            const date = moment
+              .utc(ele.registrationFinalDate)
+              .format("YYYY-MM-DD");
+
+            const headerObj = {
+              title: ele.user.name,
+              date: date,
+              status: ele.completionStatus,
+              statusClass: ele.completionStatus
+                .toLowerCase()
+                .split(" ")
+                .join(""),
+            };
+
+            const bodyObj = {
+              id: ele._id,
+              email: ele.user.email,
+              completionPercentage: ele.completionPercentage,
+              habitsGoal: ele.userHabitsGoalDayRegistration,
+              habitsAchieved: ele.userHabitsAchievedDayRegistration,
+              currentStreak: ele.currentStreak,
+            };
+
             return (
-              <AccordionMuiHabitElement
-                habit={ele.user.name}
-                date={ele.registrationFinalDate}
-                status={ele.completionStatus}
-                key={Math.random()}
-                habitInformation={{
-                  completion: ele.completionPercentage,
-                  allHabits: ele.userHabitsGoalDayRegistration,
-                  habitsDone: ele.userHabitsAchievedDayRegistration,
-                }}
-                id={ele._id}
-                email={ele.user.email}
-                color={color}
-                streak={ele.currentStreak}
-              />
+              <AccordionHabit header={headerObj} key={index}>
+                <HabitElementBody information={bodyObj} />
+              </AccordionHabit>
             );
           })}
         </ul>

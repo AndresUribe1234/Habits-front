@@ -5,13 +5,14 @@ import AuthContext from "@/store/auth-context";
 
 const HabitElementBody = (props) => {
   const authCtx = useContext(AuthContext);
-  const { completion, allHabits, habitsDone } = props.habitInformation;
-  const completionRender = String(completion * 100).substring(0, 5) + "%";
-  const numAllHabits = allHabits.length;
-  const numHabitsDone = habitsDone.length;
+  const { information } = props;
+  const completionRender =
+    String(information.completionPercentage * 100).substring(0, 5) + "%";
+  const numAllHabits = information.habitsGoal.length;
+  const numHabitsDone = information.habitsAchieved.length;
   let habitsMissing = [];
-  allHabits.forEach((ele) => {
-    if (!habitsDone.includes(ele)) {
+  information.habitsGoal.forEach((ele) => {
+    if (!information.habitsAchieved.includes(ele)) {
       habitsMissing.push(ele);
     }
   });
@@ -30,16 +31,16 @@ const HabitElementBody = (props) => {
       <div className={classes["info-section"]}>
         <ul className={classes["left-section"]}>
           <span className={classes["habit-tag"]}>Habits done</span>
-          {habitsDone.map((ele) => (
-            <li className={classes.habit} key={Math.random()}>
+          {information.habitsAchieved.map((ele, index) => (
+            <li className={classes.habit} key={index}>
               {ele}
             </li>
           ))}
         </ul>
         <ul className={classes["right-section"]}>
           <span className={classes["habit-tag"]}>Habits missing</span>
-          {habitsMissing.map((ele) => (
-            <li className={classes.habit} key={Math.random()}>
+          {habitsMissing.map((ele, index) => (
+            <li className={classes.habit} key={index}>
               {ele}
             </li>
           ))}
@@ -47,11 +48,11 @@ const HabitElementBody = (props) => {
       </div>
       <div className={classes["info-section"]}>
         <p className={classes["left-section"]}>Current streak</p>
-        <p className={classes["right-section"]}>{props.streak}</p>
+        <p className={classes["right-section"]}>{information.currentStreak}</p>
       </div>
-      {authCtx.authObject.user === props.email && (
+      {authCtx.authObject.user === information.email && (
         <div>
-          <Link href={`/registration-habit/${props.id}`}>Edit</Link>
+          <Link href={`/registration-habit/${information.id}`}>Edit</Link>
         </div>
       )}
     </div>

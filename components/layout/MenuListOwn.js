@@ -88,7 +88,10 @@ const MenuListOwn = (props) => {
   );
 
   return (
-    <div className={classes["menu-container"]} ref={menuRef}>
+    <div
+      className={`${classes["menu-container"]} ${classes["nav-menu"]}`}
+      ref={menuRef}
+    >
       <button onClick={toggleMenu} className={isSettings ? classes.active : ""}>
         Settings
       </button>
