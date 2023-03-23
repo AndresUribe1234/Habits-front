@@ -3,7 +3,6 @@ import classes from "./../../styles/MainNavigation.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import AuthContext from "@/store/auth-context";
-import BasicMenuMui from "./BasicMenuMui";
 import ExpandableNav from "./ExpandableNav";
 import MenuListOwn from "./MenuListOwn";
 
@@ -68,8 +67,11 @@ const MainNavigaton = () => {
           Global Leaderboard
         </Link>
       </li>
-      <BasicMenuMui onLogout={logOutHandler} />
-      <MenuListOwn />
+
+      <MenuListOwn
+        onLogout={logOutHandler}
+        items={["Profile", "My account", "Logout"]}
+      />
     </React.Fragment>
   );
 

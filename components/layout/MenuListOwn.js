@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import classes from "./../../styles/MenuList.module.scss";
 import ReactDOM from "react-dom";
-
-const DUMMY_ITEMS = ["hello", "bye bye", "see you later"];
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const MenuListOwn = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +12,21 @@ const MenuListOwn = (props) => {
     left: 0,
     width: 0,
   });
+  const [menuItems, setMenuItems] = useState([]);
+
+  const router = useRouter();
+  const isSettings =
+    router.pathname === "/profile" || router.pathname === "/myaccount"
+      ? true
+      : false;
+
+  const items = props.items ? props.items : [];
+
+  useEffect(() => {
+    if (props.items) {
+      setMenuItems(props.items);
+    }
+  }, items);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,17 +69,29 @@ const MenuListOwn = (props) => {
         width: `${menuCoordinates.width}px`,
       }}
     >
-      {DUMMY_ITEMS.map((item, index) => (
-        <li key={index} onClick={() => handleClick(item)}>
-          <p>{item}</p>
-        </li>
-      ))}
+      {menuItems.map((item, index) => {
+        const path = item.toLowerCase().split(" ").join("");
+        if (item.toLowerCase() === "logout") {
+          return (
+            <li key={index} onClick={props.onLogout}>
+              Logout
+            </li>
+          );
+        }
+        return (
+          <li key={index} onClick={() => handleClick(item)}>
+            <Link href={`${path}`}>{item}</Link>
+          </li>
+        );
+      })}
     </ul>
   );
 
   return (
     <div className={classes["menu-container"]} ref={menuRef}>
-      <button onClick={toggleMenu}>Settings</button>
+      <button onClick={toggleMenu} className={isSettings ? classes.active : ""}>
+        Settings
+      </button>
       {ReactDOM.createPortal(ulContent, document.getElementById("portal"))}
     </div>
   );

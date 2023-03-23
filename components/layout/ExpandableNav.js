@@ -3,7 +3,6 @@ import classes from "./../../styles/ExpandableNav.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import BasicMenuMui from "./BasicMenuMui";
 import MenuListOwn from "./MenuListOwn";
 
 function Navigation(props) {
@@ -60,8 +59,11 @@ function Navigation(props) {
             Global Leaderboard
           </Link>
         </li>
-        <BasicMenuMui onLogout={props.onLogout} />
-        <MenuListOwn onLogout={props.onLogout} />
+
+        <MenuListOwn
+          onLogout={props.onLogout}
+          items={["Profile", "My account", "Logout"]}
+        />
       </ul>
     </nav>
   );
