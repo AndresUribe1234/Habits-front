@@ -66,7 +66,6 @@ export default function BasicModal(props) {
             </div>
 
             <div>
-              <button type="button">Add</button>
               <button type="button" onClick={handleClose}>
                 Close
               </button>

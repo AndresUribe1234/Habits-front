@@ -30,6 +30,15 @@ function Calendar(props) {
     weekSix: { dateValueSecUTCForCalendar: [], valueForCalendar: [] },
   };
 
+  const keysOfCalenderObject = [
+    "weekOne",
+    "weekTwo",
+    "weekThree",
+    "weekFour",
+    "weekFive",
+    "weekSix",
+  ];
+
   // 2)Adjust first weekdays values depending on which day of the week the month starts
   for (let i = 0; i < firstDayOfMonthWeekDayIndex; i++) {
     calenderObject.weekOne.valueForCalendar.push("");
@@ -40,49 +49,20 @@ function Calendar(props) {
   const daysInMonth = currentDate.daysInMonth();
   let weekCounter = 1;
   let currentDateCounter = currentDate.clone();
+
   for (let i = 1; i <= daysInMonth; i++) {
-    if (weekCounter === 1) {
-      calenderObject.weekOne.valueForCalendar.push(i);
-      calenderObject.weekOne.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
+    // Assign to specific key in calender object depending of week counter
+    calenderObject[
+      `${keysOfCalenderObject[weekCounter - 1]}`
+    ].valueForCalendar.push(i);
 
-    if (weekCounter === 2) {
-      calenderObject.weekTwo.valueForCalendar.push(i);
-      calenderObject.weekTwo.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
+    calenderObject[
+      `${keysOfCalenderObject[weekCounter - 1]}`
+    ].dateValueSecUTCForCalendar.push(
+      new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
+    );
 
-    if (weekCounter === 3) {
-      calenderObject.weekThree.valueForCalendar.push(i);
-      calenderObject.weekThree.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
-
-    if (weekCounter === 4) {
-      calenderObject.weekFour.valueForCalendar.push(i);
-      calenderObject.weekFour.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
-
-    if (weekCounter === 5) {
-      calenderObject.weekFive.valueForCalendar.push(i);
-      calenderObject.weekFive.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
-
-    if (weekCounter === 6) {
-      calenderObject.weekSix.valueForCalendar.push(i);
-      calenderObject.weekSix.dateValueSecUTCForCalendar.push(
-        new Date(currentDateCounter.format("YYYY-MM-DD")).getTime()
-      );
-    }
-
+    // When current day index is 6 which mean last day of week change week by adding one
     if (currentDateCounter.day() === 6) {
       weekCounter = weekCounter + 1;
     }
@@ -110,8 +90,7 @@ function Calendar(props) {
     const registrationIndex = data
       .map((ele) => ele._id)
       .indexOf(registrationId);
-    console.log(registrationId);
-    console.log(registrationIndex);
+
     setModalData(data[registrationIndex]);
     setModalVisible(true);
   };
@@ -155,10 +134,15 @@ function Calendar(props) {
             <th>Sat</th>
           </tr>
         </thead>
-        <tr data-week={"1"}>
-          {calenderObject.weekOne.valueForCalendar.map((ele, index) => {
+        {keysOfCalenderObject.map((ele, index) => {
+          // 1)Declare empty body of tr tag
+          const rowsBody = [];
+          // 2)Loop through all data of correspodning week. "In" returns index in for loop.
+          for (let value in calenderObject[`${ele}`].valueForCalendar) {
+            // 3)Get date in n position of dateValue array
             const dateValue =
-              calenderObject.weekOne.dateValueSecUTCForCalendar[index];
+              calenderObject[`${ele}`].dateValueSecUTCForCalendar[value];
+            // 4)If date exists in registrations assign information to tag
 
             if (dateAsNumSecUTCFromData.includes(dateValue)) {
               const indexInDataArray =
@@ -169,7 +153,7 @@ function Calendar(props) {
                 .split(" ")
                 .join("");
 
-              return (
+              rowsBody.push(
                 <td>
                   <div
                     className={[
@@ -179,174 +163,21 @@ function Calendar(props) {
                     onClick={modalHandlerOpenStatus}
                     data-id={id}
                   >
-                    {ele}
+                    {calenderObject[`${ele}`].valueForCalendar[value]}
                   </div>
                 </td>
               );
             }
-            return <td>{ele}</td>;
-          })}
-        </tr>
-        <tr data-week={"2"}>
-          {calenderObject.weekTwo.valueForCalendar.map((ele, index) => {
-            const dateValue =
-              calenderObject.weekTwo.dateValueSecUTCForCalendar[index];
-
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
-
-              return (
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
-                    {ele}
-                  </div>
-                </td>
+            // 5)If date does not exist simply apply date
+            if (!dateAsNumSecUTCFromData.includes(dateValue)) {
+              rowsBody.push(
+                <td>{calenderObject[`${ele}`].valueForCalendar[value]}</td>
               );
             }
-            return <td>{ele}</td>;
-          })}
-        </tr>
-        <tr data-week={"3"}>
-          {calenderObject.weekThree.valueForCalendar.map((ele, index) => {
-            const dateValue =
-              calenderObject.weekThree.dateValueSecUTCForCalendar[index];
+          }
 
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
-
-              return (
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
-                    {ele}
-                  </div>
-                </td>
-              );
-            }
-            return <td>{ele}</td>;
-          })}
-        </tr>
-        <tr data-week={"4"}>
-          {calenderObject.weekFour.valueForCalendar.map((ele, index) => {
-            const dateValue =
-              calenderObject.weekFour.dateValueSecUTCForCalendar[index];
-
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
-
-              return (
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
-                    {ele}
-                  </div>
-                </td>
-              );
-            }
-            return <td>{ele}</td>;
-          })}
-        </tr>
-        <tr data-week={"5"}>
-          {calenderObject.weekFive.valueForCalendar.map((ele, index) => {
-            const dateValue =
-              calenderObject.weekFive.dateValueSecUTCForCalendar[index];
-
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
-
-              return (
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
-                    {ele}
-                  </div>
-                </td>
-              );
-            }
-            return <td>{ele}</td>;
-          })}
-        </tr>
-        <tr data-week={"6"}>
-          {calenderObject.weekSix.valueForCalendar.map((ele, index) => {
-            const dateValue =
-              calenderObject.weekSix.dateValueSecUTCForCalendar[index];
-
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
-
-              return (
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
-                    {ele}
-                  </div>
-                </td>
-              );
-            }
-            return <td>{ele}</td>;
-          })}
-        </tr>
+          return <tr data-week={index + 1}>{rowsBody}</tr>;
+        })}
       </table>
       {modalVisible && (
         <ModalMuiHabitInformation
