@@ -8,6 +8,7 @@ import AccordionHabit from "./AccordionHabit";
 import moment from "moment";
 import tz from "moment-timezone";
 import HabitElementBody from "./HabitElementBody";
+import Calendar from "../graphics/Calendar";
 
 const HaitsProfile = () => {
   const authCtx = useContext(AuthContext);
@@ -52,6 +53,7 @@ const HaitsProfile = () => {
 
   return (
     <div className={classes["feed-container"]}>
+      <Calendar />
       <button>
         <Link
           href={"/registration-habit?from=myprogress"}

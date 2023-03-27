@@ -1,0 +1,55 @@
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .change-date-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .change-date-btn-container {
+      display: flex;
+
+      .change-date-btn {
+        cursor: pointer;
+        background-color: transparent;
+        transition: background-color 0.3s ease-in;
+
+        &:hover {
+          background-color: lightgray;
+          transition: background-color 0.3s ease-in-out;
+        }
+      }
+    }
+
+    .current-date {
+      min-width: 200px;
+      text-align: center;
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  th {
+    text-align: center;
+    padding: 3px;
+  }
+
+  td {
+    text-align: center;
+    padding: 3px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in;
+
+    &:hover {
+      background-color: lightgray;
+      transition: background-color 0.3s ease-in-out;
+    }
+  }
+}

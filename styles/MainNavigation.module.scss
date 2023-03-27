@@ -6,8 +6,9 @@
   display: block;
   text-align: center;
   background-color: lightblue;
-
   border-bottom: 1px solid lightgray;
+  position: sticky;
+  top: 0;
 
   div {
     font-weight: bold;
