@@ -176,7 +176,11 @@ function Calendar(props) {
             }
           }
 
-          return <tr data-week={index + 1}>{rowsBody}</tr>;
+          return (
+            <tr data-week={index + 1} key={index}>
+              {rowsBody}
+            </tr>
+          );
         })}
       </table>
       {modalVisible && (

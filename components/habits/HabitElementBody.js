@@ -51,7 +51,7 @@ const HabitElementBody = (props) => {
         <p className={classes["right-section"]}>{information.currentStreak}</p>
       </div>
       {authCtx.authObject.user === information.email && (
-        <div>
+        <div className={classes["edit-container"]}>
           <Link href={`/registration-habit/${information.id}`}>Edit</Link>
         </div>
       )}

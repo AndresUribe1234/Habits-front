@@ -1,3 +1,6 @@
+@import "./mixins";
+@import "./vars";
+
 .accordion-container {
   display: inline-block;
   flex-direction: column;
@@ -5,7 +8,8 @@
   padding: 10px;
   border-radius: 12px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
-  min-width: 400px;
+  min-width: 320px;
+  max-width: 320px;
   //   scale: 1;
   //   transition: scale 0.3s ease-in-out;
 
@@ -50,5 +54,11 @@
   &.show {
     transition: max-height 0.5s ease-in-out;
     max-height: 9999px;
+  }
+}
+
+@include desktop() {
+  .accordion-container {
+    max-width: none;
   }
 }
