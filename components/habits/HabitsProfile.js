@@ -53,7 +53,7 @@ const HaitsProfile = () => {
 
   return (
     <div className={classes["feed-container"]}>
-      <Calendar />
+      {!fetchingData && !error && <Calendar data={registrationArray} />}
       <button>
         <Link
           href={"/registration-habit?from=myprogress"}

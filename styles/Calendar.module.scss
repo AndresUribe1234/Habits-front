@@ -38,11 +38,16 @@
   th {
     text-align: center;
     padding: 3px;
+    min-width: 40px;
+    height: 40px;
   }
 
   td {
     text-align: center;
+    vertical-align: center;
     padding: 3px;
+    min-width: 40px;
+    height: 40px;
     cursor: pointer;
     background-color: transparent;
     transition: background-color 0.3s ease-in;
@@ -50,6 +55,26 @@
     &:hover {
       background-color: lightgray;
       transition: background-color 0.3s ease-in-out;
+    }
+  }
+
+  .data-logged {
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+
+    &.success {
+      background-color: #9ce79c;
+    }
+
+    &.inprogress {
+      background-color: lightyellow;
+    }
+
+    &.nexttimeyouwilldobetter {
+      background-color: lightsalmon;
     }
   }
 }
