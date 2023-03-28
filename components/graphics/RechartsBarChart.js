@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -30,7 +30,27 @@ const CustomTooltip = ({ active, payload, label, data }) => {
 };
 
 const BarChartRechart = (props) => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   const { data } = props;
+  console.log(windowSize);
 
   const arrayUTCSecData = data.map((ele) =>
     new Date(ele.registrationFinalDate).getTime()
@@ -91,8 +111,8 @@ const BarChartRechart = (props) => {
 
   return (
     <BarChart
-      width={500}
-      height={300}
+      width={windowSize.width < 500 ? windowSize.width - 30 : 500}
+      height={windowSize.height < 950 ? windowSize.height / 3 : 400}
       data={dataArrayObject}
       margin={{ bottom: 40 }}
     >
