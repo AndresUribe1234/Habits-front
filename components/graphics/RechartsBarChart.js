@@ -58,6 +58,9 @@ const BarChartRechart = (props) => {
 
   const startingDate = moment.utc().tz("America/Bogota");
   const endingDate = startingDate.clone().subtract(30, "d");
+  const todayUtcSec = new Date(
+    moment.utc().tz("America/Bogota").format("YYYY-MM-DD")
+  ).getTime();
 
   const range = moment.range(endingDate, startingDate);
 
@@ -85,6 +88,11 @@ const BarChartRechart = (props) => {
       if (completion === 100) {
         color = "#9ce79c";
       }
+
+      if (completion !== 100 && todayUtcSec === arrayOfDatesUTC[index]) {
+        color = "#ffffe0";
+      }
+
       habitsAchieved =
         data[indexInRegistration].userHabitsAchievedDayRegistration;
 
