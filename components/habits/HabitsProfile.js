@@ -10,6 +10,7 @@ import tz from "moment-timezone";
 import HabitElementBody from "./HabitElementBody";
 import Calendar from "../graphics/Calendar";
 import UserStats from "../stats/UserStats";
+import BarChart from "../graphics/RechartsBarChart";
 
 const HaitsProfile = () => {
   const authCtx = useContext(AuthContext);
@@ -89,6 +90,11 @@ const HaitsProfile = () => {
       {!fetchingData && !error && <UserStats data={userData} />}
       {!fetchingData && !error && <h1>Habits Calendar</h1>}
       {!fetchingData && !error && <Calendar data={registrationArray} />}
+
+      {!fetchingData && !error && (
+        <h1>Last 30 days completion percentage progress</h1>
+      )}
+      {!fetchingData && !error && <BarChart data={registrationArray} />}
       <button>
         <Link
           href={"/registration-habit?from=myprogress"}
@@ -99,40 +105,6 @@ const HaitsProfile = () => {
       </button>
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}
-      {!fetchingData && !error && (
-        <ul>
-          {registrationArray.map((ele, index) => {
-            const date = moment
-              .utc(ele.registrationFinalDate)
-              .format("YYYY-MM-DD");
-
-            const headerObj = {
-              title: ele.user.name,
-              date: date,
-              status: ele.completionStatus,
-              statusClass: ele.completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join(""),
-            };
-
-            const bodyObj = {
-              id: ele._id,
-              email: ele.user.email,
-              completionPercentage: ele.completionPercentage,
-              habitsGoal: ele.userHabitsGoalDayRegistration,
-              habitsAchieved: ele.userHabitsAchievedDayRegistration,
-              currentStreak: ele.currentStreak,
-            };
-
-            return (
-              <AccordionHabit header={headerObj} key={index}>
-                <HabitElementBody information={bodyObj} />
-              </AccordionHabit>
-            );
-          })}
-        </ul>
-      )}
     </div>
   );
 };

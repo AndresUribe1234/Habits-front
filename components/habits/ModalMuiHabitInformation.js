@@ -28,7 +28,6 @@ export default function BasicModal(props) {
 
   const status = props.status;
   const data = props.data;
-  console.log(data);
 
   React.useEffect(() => {
     if (props.status) {
