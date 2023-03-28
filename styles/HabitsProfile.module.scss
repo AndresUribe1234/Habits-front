@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 10px;
+  gap: 20px;
   ul {
     display: flex;
     flex-direction: column;
@@ -18,6 +18,7 @@
 
   button {
     @extend %btn;
+    margin-bottom: 30px;
   }
 
   .btn-link {
