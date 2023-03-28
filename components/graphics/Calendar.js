@@ -134,54 +134,58 @@ function Calendar(props) {
             <th>Sat</th>
           </tr>
         </thead>
-        {keysOfCalenderObject.map((ele, index) => {
-          // 1)Declare empty body of tr tag
-          const rowsBody = [];
-          // 2)Loop through all data of correspodning week. "In" returns index in for loop.
-          for (let value in calenderObject[`${ele}`].valueForCalendar) {
-            // 3)Get date in n position of dateValue array
-            const dateValue =
-              calenderObject[`${ele}`].dateValueSecUTCForCalendar[value];
-            // 4)If date exists in registrations assign information to tag
+        <tbody>
+          {keysOfCalenderObject.map((ele, index) => {
+            // 1)Declare empty body of tr tag
+            const rowsBody = [];
+            // 2)Loop through all data of correspodning week. "In" returns index in for loop.
+            for (let value in calenderObject[`${ele}`].valueForCalendar) {
+              // 3)Get date in n position of dateValue array
+              const dateValue =
+                calenderObject[`${ele}`].dateValueSecUTCForCalendar[value];
+              // 4)If date exists in registrations assign information to tag
 
-            if (dateAsNumSecUTCFromData.includes(dateValue)) {
-              const indexInDataArray =
-                dateAsNumSecUTCFromData.indexOf(dateValue);
-              const id = data[indexInDataArray]._id;
-              const completionStatus = data[indexInDataArray].completionStatus
-                .toLowerCase()
-                .split(" ")
-                .join("");
+              if (dateAsNumSecUTCFromData.includes(dateValue)) {
+                const indexInDataArray =
+                  dateAsNumSecUTCFromData.indexOf(dateValue);
+                const id = data[indexInDataArray]._id;
+                const completionStatus = data[indexInDataArray].completionStatus
+                  .toLowerCase()
+                  .split(" ")
+                  .join("");
 
-              rowsBody.push(
-                <td>
-                  <div
-                    className={[
-                      classes[`${completionStatus}`],
-                      classes["data-logged"],
-                    ].join(" ")}
-                    onClick={modalHandlerOpenStatus}
-                    data-id={id}
-                  >
+                rowsBody.push(
+                  <td key={value}>
+                    <div
+                      className={[
+                        classes[`${completionStatus}`],
+                        classes["data-logged"],
+                      ].join(" ")}
+                      onClick={modalHandlerOpenStatus}
+                      data-id={id}
+                    >
+                      {calenderObject[`${ele}`].valueForCalendar[value]}
+                    </div>
+                  </td>
+                );
+              }
+              // 5)If date does not exist simply apply date
+              if (!dateAsNumSecUTCFromData.includes(dateValue)) {
+                rowsBody.push(
+                  <td key={value}>
                     {calenderObject[`${ele}`].valueForCalendar[value]}
-                  </div>
-                </td>
-              );
+                  </td>
+                );
+              }
             }
-            // 5)If date does not exist simply apply date
-            if (!dateAsNumSecUTCFromData.includes(dateValue)) {
-              rowsBody.push(
-                <td>{calenderObject[`${ele}`].valueForCalendar[value]}</td>
-              );
-            }
-          }
 
-          return (
-            <tr data-week={index + 1} key={index}>
-              {rowsBody}
-            </tr>
-          );
-        })}
+            return (
+              <tr data-week={index + 1} key={index}>
+                {rowsBody}
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
       {modalVisible && (
         <ModalMuiHabitInformation

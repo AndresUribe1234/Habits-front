@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/store/auth-context";
-import classes from "./../../styles/Habits.module.scss";
+import classes from "./../../styles/HabitsProfile.module.scss";
 import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
@@ -9,6 +9,7 @@ import moment from "moment";
 import tz from "moment-timezone";
 import HabitElementBody from "./HabitElementBody";
 import Calendar from "../graphics/Calendar";
+import UserStats from "../stats/UserStats";
 
 const HaitsProfile = () => {
   const authCtx = useContext(AuthContext);
@@ -16,6 +17,7 @@ const HaitsProfile = () => {
   const [fetchingData, setFetchingData] = useState(true);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userData, setUserData] = useState({});
 
   const fetchAllRegistration = async function () {
     try {
@@ -47,12 +49,45 @@ const HaitsProfile = () => {
     }
   };
 
+  const fetchUser = async function () {
+    try {
+      const objectOptions = {
+        headers: {
+          Authorization: "Bearer " + authCtx.authObject.token,
+        },
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/users/profile/${authCtx.authObject.user}`,
+        objectOptions
+      );
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        setUserData(data.data.user);
+      }
+
+      if (response.status !== 200) {
+        setErrorMessage(data.err);
+        setError(true);
+        setFetchingData(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     fetchAllRegistration();
+    fetchUser();
   }, []);
 
   return (
     <div className={classes["feed-container"]}>
+      {!fetchingData && !error && <h1>Stats</h1>}
+      {!fetchingData && !error && <UserStats data={userData} />}
+      {!fetchingData && !error && <h1>Habits Calendar</h1>}
       {!fetchingData && !error && <Calendar data={registrationArray} />}
       <button>
         <Link
