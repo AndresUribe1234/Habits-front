@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import HabittusHome from "@/components/Other/HabittussHome";
+import HabittusHome from "@/components/home/HabittussHome";
 
 export default function Home() {
   const authCtx = useContext(AuthContext);

@@ -5,8 +5,12 @@
   width: 100%;
   display: block;
   text-align: center;
-  background-color: lightblue;
+  background-color: #708090;
+  color: #d3d3d3;
+  // color: #fff;
+
   border-bottom: 1px solid lightgray;
+
   position: sticky;
   top: 0;
 
@@ -25,7 +29,7 @@
   }
 
   a {
-    color: black;
+    color: #d3d3d3;
     text-decoration: none;
   }
 
