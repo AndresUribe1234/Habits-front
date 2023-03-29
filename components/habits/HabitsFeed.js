@@ -52,15 +52,19 @@ const HabitsFeed = () => {
 
   return (
     <div className={classes["feed-container"]}>
-      <h1 style={{ marginTop: "20px" }}>Add a registration</h1>
-      <button>
-        <Link
-          href={"/registration-habit?from=feed"}
-          className={classes["btn-link"]}
-        >
-          Add habits activity
-        </Link>
-      </button>
+      {!fetchingData && !error && (
+        <h1 style={{ marginTop: "20px" }}>Add a registration</h1>
+      )}
+      {!fetchingData && !error && (
+        <button>
+          <Link
+            href={"/registration-habit?from=feed"}
+            className={classes["btn-link"]}
+          >
+            Add habits activity
+          </Link>
+        </button>
+      )}
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}
       {!fetchingData && !error && <h1>Users habits registrations</h1>}

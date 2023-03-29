@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { useContext } from "react";
 import AuthContext from "@/store/auth-context";
+import HabittusHome from "@/components/Other/HabittussHome";
 
 export default function Home() {
   const authCtx = useContext(AuthContext);
@@ -13,7 +14,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Home page</h1>
+      <HabittusHome />
     </React.Fragment>
   );
 }

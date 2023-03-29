@@ -5,6 +5,13 @@
 
   .app-table {
     border-collapse: collapse;
+    scale: 1;
+    transition: scale 0.2s ease-in;
+
+    &:hover {
+      transition: scale 0.3s ease-in-out;
+      scale: 1.1;
+    }
 
     th,
     td {

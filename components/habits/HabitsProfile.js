@@ -82,7 +82,7 @@ const HaitsProfile = () => {
 
   return (
     <div className={classes["myprogress-container"]}>
-      {!fetchingData && !error && <h1>Stats</h1>}
+      {!fetchingData && !error && <h1 style={{ marginTop: "20px" }}>Stats</h1>}
       {!fetchingData && !error && <UserStats data={userData} />}
       {!fetchingData && !error && <h1>Habits Calendar</h1>}
       {!fetchingData && !error && <Calendar data={registrationArray} />}
@@ -91,14 +91,16 @@ const HaitsProfile = () => {
         <h1>Last 30 days completion percentage progress</h1>
       )}
       {!fetchingData && !error && <BarChart data={registrationArray} />}
-      <button>
-        <Link
-          href={"/registration-habit?from=myprogress"}
-          className={classes["btn-link"]}
-        >
-          Add habits activity
-        </Link>
-      </button>
+      {!fetchingData && !error && (
+        <button>
+          <Link
+            href={"/registration-habit?from=myprogress"}
+            className={classes["btn-link"]}
+          >
+            Add habits activity
+          </Link>
+        </button>
+      )}
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}
     </div>
