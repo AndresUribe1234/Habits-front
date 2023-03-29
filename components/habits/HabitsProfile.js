@@ -81,7 +81,7 @@ const HaitsProfile = () => {
   }, []);
 
   return (
-    <div className={classes["feed-container"]}>
+    <div className={classes["myprogress-container"]}>
       {!fetchingData && !error && <h1>Stats</h1>}
       {!fetchingData && !error && <UserStats data={userData} />}
       {!fetchingData && !error && <h1>Habits Calendar</h1>}

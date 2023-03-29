@@ -1,6 +1,7 @@
 import { useContext, Fragment } from "react";
 import AuthContext from "@/store/auth-context";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
+import Leaderboard from "@/components/stats/Leadeboard";
 
 const GlobalLeaderboard = () => {
   const authCtx = useContext(AuthContext);
@@ -11,7 +12,7 @@ const GlobalLeaderboard = () => {
 
   return (
     <Fragment>
-      <h1>GlobalLeaderboard page</h1>
+      <Leaderboard />
     </Fragment>
   );
 };

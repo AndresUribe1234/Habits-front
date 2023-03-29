@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/store/auth-context";
-import classes from "./../../styles/Habits.module.scss";
+import classes from "./../../styles/HabitsFeed.module.scss";
 import Link from "next/link";
 import LoadingData from "../Other/LoadingData";
 import ErrorMessage from "../Other/ErrorMessage";
@@ -52,6 +52,7 @@ const HabitsFeed = () => {
 
   return (
     <div className={classes["feed-container"]}>
+      <h1 style={{ marginTop: "20px" }}>Add a registration</h1>
       <button>
         <Link
           href={"/registration-habit?from=feed"}
@@ -62,6 +63,7 @@ const HabitsFeed = () => {
       </button>
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}
+      {!fetchingData && !error && <h1>Users habits registrations</h1>}
       {!fetchingData && !error && (
         <ul>
           {registrationArray.map((ele, index) => {

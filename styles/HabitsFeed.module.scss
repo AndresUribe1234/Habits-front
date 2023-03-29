@@ -2,6 +2,12 @@
 @import "./vars";
 
 .feed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
   ul {
     display: flex;
     flex-direction: column;
