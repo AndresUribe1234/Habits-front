@@ -11,6 +11,12 @@ $desktop-functional-font-size: 16px;
 $desktop-body-font-size: 24px;
 $desktop-display-font-size: 64px;
 
+// Colors
+$green-contrast-navbar: #6abd6f;
+$yellow-contrast-navbar: #f5e050;
+$red-contrast-navbar: #f16060;
+$color-navbar: #708090;
+
 %container {
   border-radius: 12px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);

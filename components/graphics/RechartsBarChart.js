@@ -76,7 +76,7 @@ const BarChartRechart = (props) => {
     const exist = arrayUTCSecData.includes(arrayOfDatesUTC[index]);
 
     let completion = 0;
-    let color = "#ffa07a";
+    let color = "#F16060  ";
     let habitsAchieved = "";
     let habitsMissing = "";
 
@@ -86,11 +86,11 @@ const BarChartRechart = (props) => {
       );
       completion = data[indexInRegistration].completionPercentage * 100;
       if (completion === 100) {
-        color = "#9ce79c";
+        color = "#6ABD6F   ";
       }
 
       if (completion !== 100 && todayUtcSec === arrayOfDatesUTC[index]) {
-        color = "#ffffe0";
+        color = "#F5E050   ";
       }
 
       habitsAchieved =

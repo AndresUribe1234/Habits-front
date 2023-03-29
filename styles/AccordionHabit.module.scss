@@ -19,15 +19,15 @@
   //   }
 
   &.success {
-    border-right: 12px solid #9ce79c;
+    border-right: 12px solid #6abd6f;
   }
 
   &.inprogress {
-    border-right: 12px solid lightyellow;
+    border-right: 12px solid #f5e050;
   }
 
   &.nexttimeyouwilldobetter {
-    border-right: 12px solid lightsalmon;
+    border-right: 12px solid #f16060;
   }
 }
 .accordion-header-container {
