@@ -4,25 +4,29 @@
 .myprogress-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 20px;
-  ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-  }
 
   button {
     @extend %btn;
+    margin-top: 50px;
     margin-bottom: 50px;
+    .btn-link {
+      text-decoration: none;
+      color: white;
+    }
   }
 
-  .btn-link {
-    text-decoration: none;
-    color: white;
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px 0;
+
+    h1 {
+      padding-bottom: 20px;
+    }
   }
 }

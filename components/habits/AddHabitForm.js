@@ -73,41 +73,45 @@ const AddHabitForm = () => {
   };
 
   return (
-    <form onSubmit={submitHandler} className={classes["add-habit-form"]}>
-      <div className={classes["date-section"]}>
-        <label>Date</label>
-        <input
-          type={"date"}
-          defaultValue={`${year}-${month}-${day}`}
-          max={`${year}-${month}-${day}`}
-          className={classes["date-input"]}
-          ref={dateRef}
-        ></input>
-      </div>
-      <div className={classes["habits-section"]}>
-        <p>Habits</p>
-        {habits.map((ele) => (
-          <div key={ele}>
-            <label className={classes["habit-placeholder"]}>{ele}</label>
-            <input
-              type={"checkbox"}
-              value={ele}
-              onChange={checkedHandler}
-            ></input>
-          </div>
-        ))}
-      </div>
-      {submitingForm && <p>Form submiting...</p>}
-      {!submitingForm && error && (
-        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
-      )}
-      <div className={classes["btn-container"]}>
-        <button type={"submit"}>Submit</button>
-        <button type={"button"}>
-          <Link href={`/${router.query.from}`}>Cancel</Link>
-        </button>
-      </div>
-    </form>
+    <div>
+      <h1 className={classes["form-title"]}>Add Registration Form</h1>
+      <form onSubmit={submitHandler} className={classes["add-habit-form"]}>
+        <div className={classes["date-section"]}>
+          <h2>Date</h2>
+          <input
+            type={"date"}
+            defaultValue={`${year}-${month}-${day}`}
+            max={`${year}-${month}-${day}`}
+            className={classes["date-input"]}
+            ref={dateRef}
+          ></input>
+        </div>
+        <div className={classes["habits-section"]}>
+          <h2>Habits</h2>
+          {habits.map((ele) => (
+            <div key={ele}>
+              <label className={classes["habit-placeholder"]}>{ele}</label>
+              <input
+                type={"checkbox"}
+                value={ele}
+                onChange={checkedHandler}
+                className={classes["checkbox-input"]}
+              ></input>
+            </div>
+          ))}
+        </div>
+        {submitingForm && <p>Form submiting...</p>}
+        {!submitingForm && error && (
+          <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
+        )}
+        <div className={classes["btn-container"]}>
+          <button type={"submit"}>Submit</button>
+          <button type={"button"}>
+            <Link href={`/${router.query.from}`}>Cancel</Link>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

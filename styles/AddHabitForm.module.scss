@@ -1,54 +1,41 @@
 @import "./mixins";
 @import "./vars";
 
+.form-title {
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 1px solid #dfdfe8;
+}
+
 .add-habit-form {
-  @extend %container;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   button {
     @extend %btn;
     margin: 5px;
   }
 
-  a {
-    text-decoration: none;
-  }
-
   input {
+    @extend %input;
+
     border-radius: 4px;
   }
 
-  .btn-container {
-    display: flex;
-    padding: 10px;
-
-    a {
-      text-decoration: none;
-      color: white;
-    }
-  }
-
-  .habit-placeholder {
-    text-align: center;
-    display: inline-block;
-    min-width: 100px;
-  }
-
-  .date-input {
-    padding: 5px;
+  h2 {
+    margin-bottom: 20px;
   }
 
   .date-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 20px 0;
 
-    label {
-      padding: 0 10px 0 10px;
+    .date-input {
+      padding: 10px;
     }
   }
 
@@ -57,11 +44,30 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 0 0 20px 0;
+
+    .habit-placeholder {
+      text-align: center;
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    .checkbox-input {
+      width: 20px;
+      height: 20px;
+    }
   }
 
-  p {
-    padding: 10px;
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-top: 1px solid #dfdfe8;
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 
   .err-message {
@@ -74,16 +80,18 @@
     font-size: 24px;
 
     input {
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
       &:hover {
         scale: 0.9;
       }
     }
 
-    .date-input {
-      min-width: 150px;
-      padding: 10px;
+    .date-section {
+      .date-input {
+        min-width: 200px;
+        padding: 30px;
+      }
     }
   }
 }
