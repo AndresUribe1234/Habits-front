@@ -2,18 +2,13 @@
 @import "./vars";
 
 .profile-container {
-  @extend %container;
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 
-  button {
-    @extend %btn;
-    display: inline-block;
-    margin: 2.5px;
-  }
-
-  input {
-    @extend %input;
+  h1 {
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px;
   }
 
   .err-message {
@@ -21,11 +16,13 @@
   }
 
   .name-container {
-    margin: 20px;
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px;
   }
 
   .habits-container {
-    margin: 20px;
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px;
 
     ul {
       list-style: none;
@@ -41,41 +38,28 @@
   }
 
   .btn-container {
-    margin: 20px;
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px;
   }
 
   .field-placeholder {
     margin-bottom: 10px;
   }
+
+  button {
+    @extend %btn;
+    margin: 5px 10px;
+  }
+
+  input {
+    @extend %input;
+  }
 }
 
 @include desktop() {
   .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     font-size: 24px;
-
-    .name-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .habits-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      ul {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-    }
   }
 }

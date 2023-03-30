@@ -109,52 +109,55 @@ const ProfileForm = () => {
   };
 
   return (
-    <form className={classes["profile-container"]} onSubmit={formSubmitHandler}>
-      <div className={classes["name-container"]}>
-        <h3 className={classes["field-placeholder"]}>Name</h3>
-        {!editingProfil ? (
-          <p>{profileName}</p>
-        ) : (
-          <input ref={nameRef} defaultValue={userName}></input>
-        )}
-      </div>
-      <div className={classes["habits-container"]}>
-        <ul>
-          <h3 className={classes["field-placeholder"]}>Habits</h3>
-          {habitsArray.map((ele) => (
-            <ProfileHabitElement
-              habit={ele}
-              editingProfil={editingProfil}
-              onDeleteHabit={deleteHabitHandler}
-              key={ele}
-            />
-          ))}
-          {editingProfil && (
-            <ModalMuiAddHabitSettings
-              onAddHabit={addHabitHandler}
-              data={habitsArray}
-              suggestions={uniqueHabits}
-            />
+    <div className={classes["profile-container"]}>
+      <h1>My Profile</h1>
+      <form onSubmit={formSubmitHandler}>
+        <div className={classes["name-container"]}>
+          <h3 className={classes["field-placeholder"]}>Name</h3>
+          {!editingProfil ? (
+            <p>{profileName}</p>
+          ) : (
+            <input ref={nameRef} defaultValue={userName}></input>
           )}
-        </ul>
-      </div>
-      {error && (
-        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
-      )}
-      <div className={classes["btn-container"]}>
-        {editingProfil && <button type="submit">Submit</button>}
-        {editingProfil && (
-          <button type="button" onClick={cancelFormHandler}>
-            Cancel
-          </button>
+        </div>
+        <div className={classes["habits-container"]}>
+          <ul>
+            <h3 className={classes["field-placeholder"]}>Habits</h3>
+            {habitsArray.map((ele) => (
+              <ProfileHabitElement
+                habit={ele}
+                editingProfil={editingProfil}
+                onDeleteHabit={deleteHabitHandler}
+                key={ele}
+              />
+            ))}
+            {editingProfil && (
+              <ModalMuiAddHabitSettings
+                onAddHabit={addHabitHandler}
+                data={habitsArray}
+                suggestions={uniqueHabits}
+              />
+            )}
+          </ul>
+        </div>
+        {error && (
+          <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
         )}
-        {!editingProfil && (
-          <button type="button" onClick={editProfileHandler}>
-            Edit
-          </button>
-        )}
-      </div>
-    </form>
+        <div className={classes["btn-container"]}>
+          {editingProfil && <button type="submit">Submit</button>}
+          {editingProfil && (
+            <button type="button" onClick={cancelFormHandler}>
+              Cancel
+            </button>
+          )}
+          {!editingProfil && (
+            <button type="button" onClick={editProfileHandler}>
+              Edit
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 export default ProfileForm;

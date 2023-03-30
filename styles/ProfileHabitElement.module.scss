@@ -2,10 +2,21 @@
 @import "./vars";
 
 .habit-container {
-  button {
-    min-width: 20px;
+  .delete-btn {
+    margin: 5px 0;
+    padding: 10px;
+    min-width: 30px;
+    min-height: 30px;
     border: none;
-    background-color: transparent;
+    background-color: $color-navbar;
+    scale: 1;
+    transition: scale 0.1s ease-in;
+
+    &:hover {
+      background-color: darken($color-navbar, 10%);
+      scale: 0.9;
+      transition: scale 0.1s ease-in-out;
+    }
   }
 
   .habit-name-placeholder {

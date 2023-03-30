@@ -63,7 +63,11 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <div className={classes["add-habit-form"]}>
-            <span>Add Habit</span>
+            <h2>Add Habit</h2>
+            <p>
+              Enter your habit. Start typing to see suggestions from what other
+              users have entered, or add your own unique habit.
+            </p>
             <HabitAutocomplete
               suggestions={props.suggestions}
               onGetInputValue={getInputHandler}

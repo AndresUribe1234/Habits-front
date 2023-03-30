@@ -15,6 +15,7 @@ const ProfileHabitElement = (props) => {
           type="button"
           onClick={deleteHabitHandler}
           data-habit={props.habit}
+          className={classes["delete-btn"]}
         >
           <DeleteRoundedIcon />
         </button>
