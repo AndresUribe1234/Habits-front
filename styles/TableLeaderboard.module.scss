@@ -5,13 +5,6 @@
 
   .app-table {
     border-collapse: collapse;
-    scale: 1;
-    transition: scale 0.2s ease-in;
-
-    &:hover {
-      transition: scale 0.3s ease-in-out;
-      scale: 1.05;
-    }
 
     th,
     td {
@@ -28,6 +21,10 @@
     .sub-table-header {
       background-color: #f0f0f5;
       font-weight: bold;
+    }
+
+    .odd-row {
+      background-color: #f7f7fa;
     }
   }
 }

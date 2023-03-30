@@ -37,7 +37,10 @@ const TableLeaderboard = (props) => {
           </tr>
           {data.map((ele, index) => {
             return (
-              <tr key={index}>
+              <tr
+                key={index}
+                className={index % 2 === 1 ? classes["odd-row"] : ""}
+              >
                 <td>{ele.ranking}</td>
                 <td>{ele.name}</td>
                 <td>
