@@ -13,8 +13,15 @@ const Login = () => {
   }
 
   return (
-    <div className={classes["form-container"]}>
-      {authCtx.authObject.isLogIn && <p>Your are already logged in!</p>}
+    <div
+      className={[
+        classes["form-container"],
+        authCtx.authObject.isLogIn ? classes["logged"] : "",
+      ].join(" ")}
+    >
+      {authCtx.authObject.isLogIn && (
+        <p className={classes["logged-in"]}>Your are already logged in!</p>
+      )}
       {!authCtx.authObject.isLogIn && loginForm && <LoginForm />}
       {!authCtx.authObject.isLogIn && !loginForm && <CreateAccountForm />}
       {!authCtx.authObject.isLogIn && (
