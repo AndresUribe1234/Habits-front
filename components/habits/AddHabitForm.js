@@ -73,7 +73,7 @@ const AddHabitForm = () => {
   };
 
   return (
-    <div>
+    <div className={classes["add-form"]}>
       <h1 className={classes["form-title"]}>Add Registration Form</h1>
       <form onSubmit={submitHandler} className={classes["add-habit-form"]}>
         <div className={classes["date-section"]}>

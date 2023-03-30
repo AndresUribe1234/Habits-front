@@ -1,50 +1,25 @@
 @import "./mixins";
 @import "./vars";
 
+.form-title {
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 1px solid #dfdfe8;
+}
+
 .add-habit-form {
-  @extend %container;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  text-align: center;
 
   button {
     @extend %btn;
     margin: 5px;
   }
 
-  a {
-    text-decoration: none;
-  }
-
-  input {
-    border-radius: 4px;
-  }
-
-  .btn-container {
-    display: flex;
-    padding: 10px;
-  }
-
-  .habit-placeholder {
-    text-align: center;
-    display: inline-block;
-    min-width: 100px;
-  }
-
-  .date-input {
-    padding: 5px;
-  }
-
-  .date-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-
-    label {
-      padding: 0 10px 0 10px;
-    }
+  .date-placeholder {
+    padding-top: 20px;
   }
 
   .habits-section {
@@ -52,23 +27,53 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 20px 0;
+    border-bottom: 1px solid #dfdfe8;
+
+    .habit-placeholder {
+      text-align: center;
+      display: inline-block;
+      min-width: 100px;
+      padding-right: 10px;
+    }
+
+    .checkbox-input {
+      width: 20px;
+      height: 20px;
+    }
+
+    h2 {
+      padding-bottom: 20px;
+    }
   }
 
-  p {
-    padding: 10px;
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-top: 1px solid #dfdfe8;
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
 
 @include desktop() {
+  .modify-form {
+    font-size: 24px;
+  }
   .add-habit-form {
     font-size: 24px;
 
-    input {
-      width: 20px;
-      height: 20px;
-      &:hover {
-        scale: 0.9;
+    .habits-section {
+      .checkbox-input {
+        width: 20px;
+        height: 20px;
+        &:hover {
+          scale: 0.9;
+        }
       }
     }
 

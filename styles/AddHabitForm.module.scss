@@ -76,6 +76,9 @@
 }
 
 @include desktop() {
+  .add-form {
+    font-size: 24px;
+  }
   .add-habit-form {
     font-size: 24px;
 

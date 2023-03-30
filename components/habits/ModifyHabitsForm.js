@@ -78,33 +78,39 @@ const ModifyHabitsForm = (props) => {
   };
 
   return (
-    <form className={classes["add-habit-form"]} onSubmit={submitHandler}>
-      <p>{`Habit Activity - ${dateString}`}</p>
-      <div className={classes["habits-section"]}>
-        <p>Habits</p>
-        {habits.map((ele) => (
-          <div key={ele}>
-            <label className={classes["habit-placeholder"]}>{ele}</label>
-            <input
-              type={"checkbox"}
-              defaultChecked={habitsAchieved.includes(ele) ? ele : ""}
-              value={ele}
-              onChange={checkedHandler}
-            ></input>
-          </div>
-        ))}
-      </div>
-      {submitingForm && <p>Form submiting...</p>}
-      {!submitingForm && error && (
-        <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
-      )}
-      <div className={classes["btn-container"]}>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={() => router.back()}>
-          Cancel
-        </button>
-      </div>
-    </form>
+    <div className={classes["modify-form"]}>
+      <h1 className={classes["form-title"]}>Edit Registration Form</h1>
+      <form className={classes["add-habit-form"]} onSubmit={submitHandler}>
+        <h2
+          className={classes["date-placeholder"]}
+        >{`Habit Activity - ${dateString}`}</h2>
+        <div className={classes["habits-section"]}>
+          <h2>Habits</h2>
+          {habits.map((ele) => (
+            <div key={ele}>
+              <label className={classes["habit-placeholder"]}>{ele}</label>
+              <input
+                type={"checkbox"}
+                defaultChecked={habitsAchieved.includes(ele) ? ele : ""}
+                value={ele}
+                onChange={checkedHandler}
+                className={classes["checkbox-input"]}
+              ></input>
+            </div>
+          ))}
+        </div>
+        {submitingForm && <p>Form submiting...</p>}
+        {!submitingForm && error && (
+          <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
+        )}
+        <div className={classes["btn-container"]}>
+          <button type="submit">Submit</button>
+          <button type="button" onClick={() => router.back()}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 export default ModifyHabitsForm;
