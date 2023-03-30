@@ -4,34 +4,34 @@ import Link from "next/link";
 const MainContent = () => {
   return (
     <div>
-      <main class={classes["main-content"]}>
-        <section class={classes["intro-section"]}>
-          <div class={classes["intro"]}>
-            <div class={classes["intro-text"]}>
-              <h1 class={classes["main-title"]}>Welcome to Habittus</h1>
-              <p class={classes["main-description"]}>
+      <main className={classes["main-content"]}>
+        <section className={classes["intro-section"]}>
+          <div className={classes["intro"]}>
+            <div className={classes["intro-text"]}>
+              <h1 className={classes["main-title"]}>Welcome to Habittus</h1>
+              <p className={classes["main-description"]}>
                 Track your habits and achieve your goals with ease!
               </p>
-              <button class={classes["main-button"]}>
+              <button className={classes["main-button"]}>
                 <Link href={"/login"}>Get Started</Link>
               </button>
             </div>
           </div>
         </section>
 
-        <section class={classes["features-section"]}>
-          <div class={classes["features"]}>
-            <div class={classes["intro-text"]}>
+        <section className={classes["features-section"]}>
+          <div className={classes["features"]}>
+            <div className={classes["intro-text"]}>
               <h2>Transform Your Life with Our Habit-Tracking App</h2>
               <p>
                 Are you ready to build better habits and achieve your goals? Our
                 app can help!
               </p>
             </div>
-            <h3 class={classes["feature-heading"]}>
+            <h3 className={classes["feature-heading"]}>
               Our App Includes the Following Features:
             </h3>
-            <ul class={classes["feature-titles"]}>
+            <ul className={classes["feature-titles"]}>
               <li>See What Others Are Doing</li>
               <li>Track Your Streaks</li>
               <li>Visualize Your Progress</li>
@@ -39,7 +39,7 @@ const MainContent = () => {
               <li>Compete with Friends</li>
               <li>Tailor Your Profile to Match Your Unique Habits</li>
             </ul>
-            <p class={classes["main-description"]}>
+            <p className={classes["main-description"]}>
               Are you ready to transform your life and achieve your goals? Join
               our vibrant community and harness the power of our habit-tracking
               app. See what others are doing, track your progress, and visualize

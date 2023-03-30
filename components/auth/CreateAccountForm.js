@@ -2,6 +2,7 @@ import { useRef, useContext, useState } from "react";
 import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/LoginForm.module.scss";
 import { useRouter } from "next/router";
+import ModalTermsOfServices from "./ModalMuiTermsOfService";
 
 const CreateAccountForm = () => {
   const router = useRouter();
@@ -13,6 +14,8 @@ const CreateAccountForm = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [submitingForm, setSubmitingForm] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [formSubmitObject, setFormSubmitObject] = useState({});
 
   const singupAPICall = async function (
     emailBody,
@@ -79,16 +82,37 @@ const CreateAccountForm = () => {
       return;
     }
 
-    singupAPICall(
+    setFormSubmitObject({
       usernameEnteredValue,
       passwordEnteredValue,
-      passwordConfirmEnteredValue
-    );
+      passwordConfirmEnteredValue,
+    });
+
+    if (
+      usernameEnteredValue.trim() !== "" &&
+      passwordEnteredValue.trim() !== "" &&
+      passwordConfirmEnteredValue.trim() !== ""
+    ) {
+      setModalVisible((prev) => !prev);
+    }
   };
 
   function disappearErrHandler() {
     setError(false);
   }
+
+  const visibilityHandler = () => {
+    setModalVisible(false);
+  };
+
+  const acceptTermsOfServiceHandler = () => {
+    console.log(formSubmitObject);
+    singupAPICall(
+      formSubmitObject.usernameEnteredValue,
+      formSubmitObject.passwordEnteredValue,
+      formSubmitObject.passwordConfirmEnteredValue
+    );
+  };
 
   return (
     <form onSubmit={formSubmitHandler} className={classes["auth-login-form"]}>
@@ -124,6 +148,11 @@ const CreateAccountForm = () => {
         <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
       )}
       <button type="submit">Create new account</button>
+      <ModalTermsOfServices
+        modalVisibility={modalVisible}
+        onVisibility={visibilityHandler}
+        onAcceptTerms={acceptTermsOfServiceHandler}
+      />
     </form>
   );
 };

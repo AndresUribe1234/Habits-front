@@ -4,11 +4,11 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer class={classes["footer"]}>
-      <p class={classes["footer-text"]}>
+    <footer className={classes["footer"]}>
+      <p className={classes["footer-text"]}>
         &copy; 2023 Habittus App. All Rights Reserved.
       </p>
-      <p class={classes["footer-text"]}>
+      <p className={classes["footer-text"]}>
         <Link href={"/termsofservice"}>Terms of service</Link>
       </p>
     </footer>

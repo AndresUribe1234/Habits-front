@@ -53,35 +53,41 @@ const UserStats = (props) => {
             </div>
           </div>
         </div>
-        <div className={classes["streak-container"]}>
-          <p>Longest streak</p>
-          <div className={classes["data-placeholder-container"]}>
-            <div
-              className={classes["accordion-header"]}
-              onClick={showLongestHandler}
-            >
-              <p>{data.longestStreak} days</p>
-              {longestDatesVisibility ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </div>
-            <div
-              className={[
-                classes["hidden-content"],
-                longestDatesVisibility ? classes["show"] : "",
-              ].join(" ")}
-            >
-              <p>
-                {`Began: ${moment
-                  .utc(data.dateBeginningLongestStreak)
-                  .format("MMM DD, YYYY")}`}
-              </p>
-              <p>
-                {`Ended: ${moment
-                  .utc(data.dateEndLongestStreak)
-                  .format("MMM DD, YYYY")}`}
-              </p>
+        {data.longestStreak && (
+          <div className={classes["streak-container"]}>
+            <p>Longest streak</p>
+            <div className={classes["data-placeholder-container"]}>
+              <div
+                className={classes["accordion-header"]}
+                onClick={showLongestHandler}
+              >
+                <p>{data.longestStreak} days</p>
+                {longestDatesVisibility ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </div>
+              <div
+                className={[
+                  classes["hidden-content"],
+                  longestDatesVisibility ? classes["show"] : "",
+                ].join(" ")}
+              >
+                <p>
+                  {`Began: ${moment
+                    .utc(data.dateBeginningLongestStreak)
+                    .format("MMM DD, YYYY")}`}
+                </p>
+                <p>
+                  {`Ended: ${moment
+                    .utc(data.dateEndLongestStreak)
+                    .format("MMM DD, YYYY")}`}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
