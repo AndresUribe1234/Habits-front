@@ -95,6 +95,15 @@ const CreateAccountForm = () => {
     ) {
       setModalVisible((prev) => !prev);
     }
+
+    if (
+      usernameEnteredValue.trim() === "" ||
+      passwordEnteredValue.trim() === "" ||
+      passwordConfirmEnteredValue.trim() == ""
+    ) {
+      setError(true);
+      setErrorMessage("You cannot submit form without the proper information!");
+    }
   };
 
   function disappearErrHandler() {
