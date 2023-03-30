@@ -40,12 +40,13 @@ const MainContent = () => {
               <li>Tailor Your Profile to Match Your Unique Habits</li>
             </ul>
             <p class={classes["main-description"]}>
-              Join our community and start achieving your goals with our
-              powerful habit-tracking app. With features like seeing what others
-              are doing, tracking your streaks, visualizing your progress,
-              competing with friends, and creating personalized habits, our app
-              is the perfect tool to help you build better habits and transform
-              your life. Sign up now and start your journey today!
+              Are you ready to transform your life and achieve your goals? Join
+              our vibrant community and harness the power of our habit-tracking
+              app. See what others are doing, track your progress, and visualize
+              your success. Challenge yourself and compete with friends to stay
+              motivated, and create personalized habits that work for you. With
+              our app by your side, building better habits has never been
+              easier. Sign up now and start your journey to a better you!
             </p>
           </div>
         </section>

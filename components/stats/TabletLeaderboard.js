@@ -1,7 +1,15 @@
 import classes from "./../../styles/TableLeaderboard.module.scss";
 
 const TableLeaderboard = (props) => {
+  console.log(props);
   const table = props.table;
+  const dataObject = props.dataObj;
+  const streak = dataObject.streak;
+  const dateBeg = dataObject.strDateBeg;
+  const dateEnd = dataObject.strDateEnd;
+  const data = dataObject.data;
+
+  const fractionRanking = `${dataObject.ranking}/${dataObject.numberUsers}`;
   return (
     <div className={classes["table-container"]}>
       <table className={classes["app-table"]}>
@@ -15,10 +23,10 @@ const TableLeaderboard = (props) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan={"2"}>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td colSpan={"2"}>{fractionRanking}</td>
+            <td>{streak}</td>
+            <td>{dateBeg}</td>
+            <td>{dateEnd}</td>
           </tr>
           <tr className={classes["sub-table-header"]}>
             <td>Rank</td>
@@ -27,13 +35,21 @@ const TableLeaderboard = (props) => {
             <td>Starting Date</td>
             <td>Ending Date</td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
+          {data.map((ele, index) => {
+            return (
+              <tr key={index}>
+                <td>{ele.ranking}</td>
+                <td>{ele.name}</td>
+                <td>
+                  {table === "Current streak"
+                    ? ele.currentStreak
+                    : ele.longestStreak}
+                </td>
+                <td>{ele.streakBegString}</td>
+                <td>{ele.streakEndString}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
