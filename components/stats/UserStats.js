@@ -41,14 +41,14 @@ const UserStats = (props) => {
               ].join(" ")}
             >
               <p>
-                {`Began ${moment
+                {`Began: ${moment
                   .utc(data.dateBeginningCurrentStreak)
-                  .format("YYYY-MM-DD")}`}
+                  .format("MMM DD, YYYY")}`}
               </p>
               <p>
-                {`Ended ${moment
+                {`Ended: ${moment
                   .utc(data.dateEndCurrentStreak)
-                  .format("YYYY-MM-DD")}`}
+                  .format("MMM DD, YYYY")}`}
               </p>
             </div>
           </div>
@@ -70,14 +70,14 @@ const UserStats = (props) => {
               ].join(" ")}
             >
               <p>
-                {`Began ${moment
+                {`Began: ${moment
                   .utc(data.dateBeginningLongestStreak)
-                  .format("YYYY-MM-DD")}`}
+                  .format("MMM DD, YYYY")}`}
               </p>
               <p>
-                {`Ended ${moment
+                {`Ended: ${moment
                   .utc(data.dateEndLongestStreak)
-                  .format("YYYY-MM-DD")}`}
+                  .format("MMM DD, YYYY")}`}
               </p>
             </div>
           </div>
