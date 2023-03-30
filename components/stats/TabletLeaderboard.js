@@ -12,6 +12,7 @@ const TableLeaderboard = (props) => {
   const fractionRanking = `${dataObject.ranking}/${dataObject.numberUsers}`;
   return (
     <div className={classes["table-container"]}>
+      <h1>{table}</h1>
       <table className={classes["app-table"]}>
         <thead>
           <tr>

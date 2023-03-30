@@ -2,7 +2,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
+  text-align: center;
+  margin: 0;
+
   padding-bottom: 20px;
+
+  .page-title {
+    padding: 20px 0;
+  }
+
+  .table-container {
+    border-top: 1px solid #dfdfe8;
+    padding: 20px 0;
+  }
 }
