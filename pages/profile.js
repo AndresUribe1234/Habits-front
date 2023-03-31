@@ -9,8 +9,6 @@ const Profile = () => {
   const authCtx = useContext(AuthContext);
   const router = useRouter();
 
-  console.log(router);
-
   if (!authCtx.authObject.isLogIn) {
     return <PleaseLogIn />;
   }
