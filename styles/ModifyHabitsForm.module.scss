@@ -28,7 +28,6 @@
     align-items: center;
     justify-content: center;
     padding: 20px 0;
-    border-bottom: 1px solid #dfdfe8;
 
     .habit-placeholder {
       text-align: center;
@@ -68,6 +67,9 @@
     font-size: 24px;
 
     .habits-section {
+      .habit-placeholder {
+        min-width: 150px;
+      }
       .checkbox-input {
         width: 20px;
         height: 20px;
