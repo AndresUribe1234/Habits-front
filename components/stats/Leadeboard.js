@@ -42,12 +42,11 @@ const Leaderboard = () => {
       console.log(err);
     }
   };
-  console.log(tableData);
+
   useEffect(() => {
     fetchLeaderboardsInformation();
   }, []);
 
-  console.log(tableData);
   return (
     <Fragment>
       {!fetchingData && !error && (

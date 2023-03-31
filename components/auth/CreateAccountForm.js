@@ -63,7 +63,7 @@ const CreateAccountForm = () => {
         authCtx.logInFnx(true);
         authCtx.tokenFnx(data.token);
         authCtx.userFnx(data.data.user.email);
-        router.push("/profile");
+        router.push("/profile?from=createAccount");
       }
     } catch (err) {
       console.log(err);
@@ -125,7 +125,7 @@ const CreateAccountForm = () => {
 
   return (
     <form onSubmit={formSubmitHandler} className={classes["auth-login-form"]}>
-      <p>Create new account</p>
+      <h1>Create new account</h1>
       <div>
         <label>Email</label>
         <input

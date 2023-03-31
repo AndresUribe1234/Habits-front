@@ -70,7 +70,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={formSubmitHandler} className={classes["auth-login-form"]}>
-      <p>Login</p>
+      <h1>Login</h1>
       <div>
         <label>Email</label>
         <input

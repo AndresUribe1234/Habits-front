@@ -152,7 +152,7 @@ const ProfileForm = () => {
           )}
           {!editingProfil && (
             <button type="button" onClick={editProfileHandler}>
-              Edit
+              Edit Profile
             </button>
           )}
         </div>

@@ -55,6 +55,10 @@
     .checkbox-input {
       width: 20px;
       height: 20px;
+      cursor: pointer;
+      &:hover {
+        scale: 0.9;
+      }
     }
   }
 
@@ -79,21 +83,19 @@
   .add-form {
     font-size: 24px;
   }
+
   .add-habit-form {
     font-size: 24px;
 
-    input {
-      width: 30px;
-      height: 30px;
-      &:hover {
-        scale: 0.9;
-      }
-    }
-
-    .date-section {
-      .date-input {
+    .habits-section {
+      .habit-placeholder {
+        text-align: center;
+        display: inline-block;
         min-width: 200px;
-        padding: 30px;
+      }
+      .checkbox-input {
+        width: 25px;
+        height: 25px;
       }
     }
   }

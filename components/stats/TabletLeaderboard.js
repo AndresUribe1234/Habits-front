@@ -1,7 +1,6 @@
 import classes from "./../../styles/TableLeaderboard.module.scss";
 
 const TableLeaderboard = (props) => {
-  console.log(props);
   const table = props.table;
   const dataObject = props.dataObj;
   const streak = dataObject.streak;
