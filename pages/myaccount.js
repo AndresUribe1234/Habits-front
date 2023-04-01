@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
-import Link from "next/link";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
+import ChangeEmailForm from "@/components/auth/ChangeEmailForm";
+import ChangePasswordForm from "@/components/auth/ChangePasswordForm";
+import classes from "./../styles/MyAccount.module.scss";
 
 const MyAccount = () => {
   const authCtx = useContext(AuthContext);
@@ -9,7 +11,13 @@ const MyAccount = () => {
   if (!authCtx.authObject.isLogIn) {
     return <PleaseLogIn />;
   }
-  return <h1>My account page</h1>;
+  return (
+    <div className={classes["myaccount-container"]}>
+      <h1 className={classes["page-name"]}>My Account</h1>
+      <ChangeEmailForm />
+      <ChangePasswordForm />
+    </div>
+  );
 };
 
 export default MyAccount;

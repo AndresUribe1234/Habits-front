@@ -1,0 +1,11 @@
+.myaccount-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  .page-name {
+    padding: 20px 0;
+    border-bottom: 1px solid #dfdfe8;
+  }
+}
