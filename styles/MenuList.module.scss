@@ -112,3 +112,11 @@
     }
   }
 }
+
+@include tablet() {
+  .nav-menu {
+    button {
+      font-size: 16px;
+    }
+  }
+}

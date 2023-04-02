@@ -22,6 +22,7 @@ const ChangeEmailForm = () => {
   const isEditingFormHandler = () => {
     setEditingForm(true);
     setFormEmailVisibe(true);
+    setSuccessMsg(false);
   };
 
   const cancelEditingFormHandler = () => {
@@ -39,7 +40,7 @@ const ChangeEmailForm = () => {
 
   const verificationSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("submit new email form");
+
     const enteredVerification = verificationRef.current.value;
     await verificationTokenNewEmail(enteredVerification);
   };
@@ -98,7 +99,6 @@ const ChangeEmailForm = () => {
       );
 
       const data = await response.json();
-      console.log(data);
 
       if (response.status !== 200) {
         setSubmitingForm(false);
@@ -134,7 +134,9 @@ const ChangeEmailForm = () => {
           </button>
         </div>
       )}
-      {success && <p>Success: Email was changed!</p>}
+      {success && (
+        <p className={classes.success}>Success: Email was changed!</p>
+      )}
       {formEmailVisibe && (
         <form onSubmit={newEmailSubmitHandler}>
           <div>
@@ -158,8 +160,20 @@ const ChangeEmailForm = () => {
         </form>
       )}
       {verificationFormVisible && (
-        <form onSubmit={verificationSubmitHandler}>
+        <form
+          onSubmit={verificationSubmitHandler}
+          className={classes["verification-form"]}
+        >
           <div>
+            <p>
+              We've sent a verification code to your email address. Please check
+              your inbox, as well as your spam or junk folders, as the email may
+              have been filtered there.
+            </p>
+            <p>
+              If you don't receive the email within a few minutes, please
+              contact our support team at habittusdev@gmail.com.
+            </p>
             <h2>Verification token</h2>
             <input ref={verificationRef}></input>
           </div>

@@ -102,8 +102,11 @@ const MainNavigaton = () => {
       <nav>
         <ul>
           {!isLogIn && notLoggedInUI}
-          {isLogIn && windowSize.width > 500 && loggedInUI}
-          {isLogIn && windowSize.width <= 500 && (
+          {isLogIn &&
+            windowSize.width > 500 &&
+            windowSize.height > 500 &&
+            loggedInUI}
+          {isLogIn && (windowSize.width <= 500 || windowSize.height <= 500) && (
             <ExpandableNav onLogout={logOutHandler} />
           )}
         </ul>
