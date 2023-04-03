@@ -20,10 +20,12 @@ const OtherUserProgress = () => {
 
   useEffect(() => {
     setUserId(router.query.userId);
-    console.log("inside use effect", userId);
-    fetchAllRegistration();
-    fetchUser();
-  }, []);
+
+    if (userId) {
+      fetchAllRegistration();
+      fetchUser();
+    }
+  }, [router, userId]);
 
   const backHandler = () => {
     router.back();
