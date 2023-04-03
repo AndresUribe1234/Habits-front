@@ -24,4 +24,16 @@
     text-decoration: none;
     color: white;
   }
+
+  .link-progress {
+    color: black;
+    padding: 20px 0;
+    text-align: center;
+    a {
+      color: black;
+      &:visited {
+        color: black;
+      }
+    }
+  }
 }

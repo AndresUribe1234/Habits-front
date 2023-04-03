@@ -50,6 +50,8 @@ const HabitsFeed = () => {
     fetchAllRegistration();
   }, []);
 
+  console.log(registrationArray);
+
   return (
     <div className={classes["feed-container"]}>
       {!fetchingData && !error && (
@@ -94,9 +96,19 @@ const HabitsFeed = () => {
               currentStreak: ele.currentStreak,
             };
 
+            const userToSeeProgress = ele.user._id;
+            console.log("Array", ele.user.email);
+            console.log("Context", authCtx.authObject.user);
             return (
               <AccordionHabit header={headerObj} key={index}>
                 <HabitElementBody information={bodyObj} />
+                {authCtx.authObject.user !== ele.user.email && (
+                  <div className={classes["link-progress"]}>
+                    <Link href={`myprogress/${userToSeeProgress}`}>
+                      {` ${ele.user.name} progress`}
+                    </Link>
+                  </div>
+                )}
               </AccordionHabit>
             );
           })}

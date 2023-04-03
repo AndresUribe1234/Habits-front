@@ -2,7 +2,13 @@
 @import "./vars";
 
 .information-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
+  padding: 20px 0px 0px 0px;
+
   .info-section {
     text-align: center;
     display: flex;
@@ -36,17 +42,10 @@
   }
 
   .edit-container {
-    text-decoration: none;
+    text-decoration: underline;
     color: black;
-    padding: 3px;
+    padding: 20px 0;
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out;
-
-    &:hover {
-      background-color: lightgray;
-      border-radius: 10%;
-      transition: background-color 0.3s ease-in-out;
-    }
 
     a:link {
       text-decoration: none;
@@ -57,25 +56,11 @@
       text-decoration: none;
       color: black;
     }
-
-    a:hover {
-      text-decoration: none;
-      color: black;
-    }
-
-    a:active {
-      text-decoration: none;
-      color: black;
-    }
   }
 }
 
 @include desktop() {
   .information-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     font-size: 20px;
 
     .habit-tag {
