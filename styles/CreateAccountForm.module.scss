@@ -1,0 +1,54 @@
+@import "./mixins";
+@import "./vars";
+
+.create-account-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  button {
+    @extend %btn;
+  }
+
+  input {
+    @extend %input;
+  }
+
+  .err-message {
+    color: lightcoral;
+  }
+
+  .auth-login-form {
+    div {
+      padding: 5px;
+      label {
+        display: block;
+        padding: 2.5px;
+      }
+    }
+  }
+
+  .verification-form {
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 0 1em 0;
+    }
+  }
+
+  .btn-container {
+    button {
+      margin: 5px;
+    }
+  }
+}
+
+@include desktop() {
+  .create-account-container {
+    font-size: 24px;
+    width: 70vw;
+    margin: 10px auto 0 auto;
+  }
+}
