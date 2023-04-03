@@ -2,7 +2,8 @@ import LoginForm from "@/components/auth/LoginForm";
 import CreateAccountForm from "@/components/auth/CreateAccountForm";
 import React, { useContext, useState } from "react";
 import AuthContext from "@/store/auth-context";
-import classes from "./../styles/login.module.scss";
+import classes from "./../../styles/login.module.scss";
+import Link from "next/link";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
@@ -33,6 +34,7 @@ const Login = () => {
           {loginForm ? "Create new account" : "Login"}
         </button>
       )}
+      <Link href={"/login/forgotpassword"}>Forgot password</Link>
     </div>
   );
 };
