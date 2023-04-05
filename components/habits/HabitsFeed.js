@@ -73,7 +73,7 @@ const HabitsFeed = () => {
           {registrationArray.map((ele, index) => {
             const date = moment
               .utc(ele.registrationFinalDate)
-              .format("YYYY-MM-DD");
+              .format("MMM DD, YYYY");
 
             const headerObj = {
               title: ele.user.name,

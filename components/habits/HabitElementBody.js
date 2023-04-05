@@ -29,21 +29,35 @@ const HabitElementBody = (props) => {
         >{`${numHabitsDone}/${numAllHabits}`}</p>
       </div>
       <div className={classes["info-section"]}>
-        <ul className={classes["left-section"]}>
-          <span className={classes["habit-tag"]}>Habits done</span>
-          {information.habitsAchieved.map((ele, index) => (
-            <li className={classes.habit} key={index}>
-              {ele}
-            </li>
-          ))}
+        <ul className={classes["habit-section"]}>
+          <span className={classes["left-section"]}>Habits done</span>
+          <div className={classes["right-section"]}>
+            {information.habitsAchieved.length < 1 ? (
+              <p>None</p>
+            ) : (
+              information.habitsAchieved.map((ele, index) => (
+                <li className={classes.habit} key={index}>
+                  {ele}
+                </li>
+              ))
+            )}
+          </div>
         </ul>
-        <ul className={classes["right-section"]}>
-          <span className={classes["habit-tag"]}>Habits missing</span>
-          {habitsMissing.map((ele, index) => (
-            <li className={classes.habit} key={index}>
-              {ele}
-            </li>
-          ))}
+      </div>
+      <div className={classes["info-section"]}>
+        <ul className={classes["habit-section"]}>
+          <span className={classes["left-section"]}>Habits missing</span>
+          <div className={classes["right-section"]}>
+            {habitsMissing.length < 1 ? (
+              <p>None</p>
+            ) : (
+              habitsMissing.map((ele, index) => (
+                <li className={classes.habit} key={index}>
+                  {ele}
+                </li>
+              ))
+            )}
+          </div>
         </ul>
       </div>
       <div className={classes["info-section"]}>

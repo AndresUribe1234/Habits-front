@@ -12,29 +12,27 @@
   .info-section {
     text-align: center;
     display: flex;
+    align-items: center;
     margin: 5px;
     padding: 2.5px;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 
-  ul {
-    list-style: none;
+  .left-section {
+    display: inline-block;
+    width: 140px;
+    font-weight: bold;
   }
 
   .right-section {
     display: inline-block;
-
-    width: 140px;
-  }
-  .left-section {
-    display: inline-block;
     width: 140px;
   }
 
-  .habit-tag {
-    font-weight: normal;
-    font-size: 16px;
+  .habit-section {
+    display: flex;
+    flex-direction: row;
   }
 
   div {
@@ -62,10 +60,6 @@
 @include desktop() {
   .information-container {
     font-size: 20px;
-
-    .habit-tag {
-      font-size: 20px;
-    }
 
     .right-section {
       min-width: 200px;
