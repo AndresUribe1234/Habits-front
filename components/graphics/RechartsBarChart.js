@@ -136,7 +136,9 @@ const BarChartRechart = (props) => {
             return (
               <div className={classes["custom-tooltip"]}>
                 <p>{label}</p>
-                <p>{`Completion percentage: ${payload[0].value}%`}</p>
+                <p>{`Completion percentage: ${payload[0].value.toFixed(
+                  2
+                )}%`}</p>
                 {payload[0].value !== 0 && (
                   <>
                     <p>{`Habits achieved: ${payload[0].payload.habitsAchieved.join(
