@@ -9,6 +9,10 @@
   font-size: 16px;
   padding: 20px 0px 0px 0px;
 
+  ul {
+    list-style: none;
+  }
+
   .info-section {
     text-align: center;
     display: flex;
@@ -33,6 +37,7 @@
   .habit-section {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   div {

@@ -30,7 +30,7 @@ const HabitElementBody = (props) => {
       </div>
       <div className={classes["info-section"]}>
         <ul className={classes["habit-section"]}>
-          <span className={classes["left-section"]}>Habits done</span>
+          <p className={classes["left-section"]}>Habits done</p>
           <div className={classes["right-section"]}>
             {information.habitsAchieved.length < 1 ? (
               <p>None</p>
@@ -46,7 +46,7 @@ const HabitElementBody = (props) => {
       </div>
       <div className={classes["info-section"]}>
         <ul className={classes["habit-section"]}>
-          <span className={classes["left-section"]}>Habits missing</span>
+          <p className={classes["left-section"]}>Habits missing</p>
           <div className={classes["right-section"]}>
             {habitsMissing.length < 1 ? (
               <p>None</p>
