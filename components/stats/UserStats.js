@@ -53,7 +53,7 @@ const UserStats = (props) => {
             </div>
           </div>
         </div>
-        {data.longestStreak && (
+        {data.longestStreak ? (
           <div className={classes["streak-container"]}>
             <p>Longest streak</p>
             <div className={classes["data-placeholder-container"]}>
@@ -87,6 +87,8 @@ const UserStats = (props) => {
               </div>
             </div>
           </div>
+        ) : (
+          ""
         )}
       </div>
     </div>

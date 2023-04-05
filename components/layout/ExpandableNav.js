@@ -45,7 +45,7 @@ function Navigation(props) {
               classes["navigation__link"],
             ].join(" ")}
           >
-            My Progess
+            My Progress
           </Link>
         </li>
         <li className={classes["navigation__item"]}>
