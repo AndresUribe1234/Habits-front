@@ -10,33 +10,34 @@ This project is very important to me because I have been tracking my habits for 
 
 The app has the following features:
 
-Habit tracking: Users can create habits and track their progress over time.
-Insights: The app provides insights on users' habits, such as streaks, success rates, and most common habits.
-Motivation: The app displays users' progress in a way that helps them stay motivated and continue developing their habits.
-User accounts: Users can create accounts and save their habits and progress.
+- Habit tracking: Users can create habits and track their progress over time.
+- Insights: The app provides insights on users' habits, such as streaks, success rates, and most common habits.
+- Motivation: The app displays users' progress in a way that helps them stay motivated and continue developing their habits.
+- User accounts: Users can create accounts and save their habits and progress.
 
 ## Installation
 
 To install the front-end code, follow these steps:
 
-Clone the repository: git clone https://github.com/AndresUribe1234/Habits-front.git
-Install dependencies: npm install
-Set the NEXT_PUBLIC_NODE_URL environment variable in a config file:
-Create a file called config.js in the root directory of the project.
-Add the following line to the file: export const NEXT_PUBLIC_NODE_URL = "http://localhost:8000"; (replace http://localhost:8000 with the port where you are running your back-end API).
-Run the app: npm start
-Note: The app requires a back-end API to work properly. Please refer to the <a href="">Habits API</a> repository for more information.
+1. Clone the repository: `git clone https://github.com/AndresUribe1234/Habits-front.git`
+2. Install dependencies: `npm install`
+3. Set the `NEXT_PUBLIC_NODE_URL` environment variable in a config file:
+   - Create a file called `config.js` in the root directory of the project.
+   - Add the following line to the file: `export const NEXT_PUBLIC_NODE_URL = "http://localhost:8000";` (replace `http://localhost:8000` with the port where you are running your back-end API).
+4. Run the app: `npm start`
+
+Note: The app requires a back-end API to work properly. Please refer to the [Habits API](https://github.com/AndresUribe1234/Habits-api) repository for more information.
 
 ## Usage
 
 To use the app, follow these steps:
 
-Make sure that the back-end API is running.
-Open the app in your browser.
-Create an account or log in with an existing one.
-Add habits that you want to track.
-Log your progress daily or weekly.
-Check your insights and stay motivated!
+1. Make sure that the back-end API is running.
+2. Open the app in your browser.
+3. Create an account or log in with an existing one.
+4. Add habits that you want to track.
+5. Log your progress daily or weekly.
+6. Check your insights and stay motivated!
 
 ## Production Environment
 
@@ -44,8 +45,8 @@ The app is live at https://www.habittus.com/ and is running in the production en
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the <a href="">LICENSE</a> file for more information.
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more information.
 
 ## Contact
 
-If you have any questions or comments about the app, feel free to contact me at anduri1997@gmail.com.
+If you have any questions or comments about the app, feel free to contact me at [anduri1997@gmail.com](mailto:anduri1997@gmail.com).
