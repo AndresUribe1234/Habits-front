@@ -1,6 +1,6 @@
 # Habits-front
 
-Habits-front is the front-end code for a web application that helps users track their habits and provides insights to help them stay motivated. The app is built using JavaScript and the ReactJS framework Next.js and runs on the front-end.
+Habits-front is the front-end code for a web application that helps users track their habits and provides insights to help them stay motivated. The app is built using the Next.js framework, which is based on JavaScript, and it runs on the front-end.
 
 ## Motivation
 
@@ -26,7 +26,7 @@ To install the front-end code, follow these steps:
    - Add the following line to the file: `export const NEXT_PUBLIC_NODE_URL = "http://localhost:8000";` (replace `http://localhost:8000` with the port where you are running your back-end API).
 4. Run the app: `npm start`
 
-Note: The app requires a back-end API to work properly. Please refer to the [Habits API](https://github.com/AndresUribe1234/Habits-api) repository for more information.
+Note: The app requires a back-end API to work properly. Please refer to the [Habits API](https://github.com/AndresUribe1234/Habits-back) repository for more information.
 
 ## Usage
 
@@ -45,7 +45,7 @@ The app is live at https://www.habittus.com/ and is running in the production en
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the terms of the MIT license. See the [LICENSE](https://github.com/AndresUribe1234/Habits-front/blob/main/license.txt) file for more information.
 
 ## Contact
 
