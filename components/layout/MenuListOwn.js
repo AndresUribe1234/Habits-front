@@ -60,6 +60,12 @@ const MenuListOwn = (props) => {
     setIsOpen(false);
   };
 
+  const menuClickHandler = () => {
+    if (props.mobile) {
+      props.onCloseExpansion();
+    }
+  };
+
   const ulContent = (
     <ul
       className={`${classes["menu-list"]} ${isOpen ? classes.show : ""}`}
@@ -79,7 +85,11 @@ const MenuListOwn = (props) => {
           );
         }
         return (
-          <li key={index} onClick={() => handleClick(item)}>
+          <li
+            key={index}
+            onClick={() => handleClick(item)}
+            onClick={menuClickHandler}
+          >
             <Link href={`${path}`}>{item}</Link>
           </li>
         );

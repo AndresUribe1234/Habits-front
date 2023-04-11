@@ -50,7 +50,6 @@ const BarChartRechart = (props) => {
   }, []);
 
   const { data } = props;
-  console.log(windowSize);
 
   const arrayUTCSecData = data.map((ele) =>
     new Date(ele.registrationFinalDate).getTime()

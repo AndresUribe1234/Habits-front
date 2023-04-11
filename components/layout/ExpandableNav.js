@@ -26,7 +26,7 @@ function Navigation(props) {
       <ul
         className={[classes[`navigation__list`], classes[expression]].join(" ")}
       >
-        <li className={classes["navigation__item"]}>
+        <li className={classes["navigation__item"]} onClick={toggleExpansion}>
           <Link
             href={"/feed"}
             className={[
@@ -37,7 +37,7 @@ function Navigation(props) {
             Feed
           </Link>
         </li>
-        <li className={classes["navigation__item"]}>
+        <li className={classes["navigation__item"]} onClick={toggleExpansion}>
           <Link
             href={"/myprogress"}
             className={[
@@ -48,7 +48,7 @@ function Navigation(props) {
             My Progress
           </Link>
         </li>
-        <li className={classes["navigation__item"]}>
+        <li className={classes["navigation__item"]} onClick={toggleExpansion}>
           <Link
             href={"/globalleaderboard"}
             className={[
@@ -63,6 +63,8 @@ function Navigation(props) {
         <MenuListOwn
           onLogout={props.onLogout}
           items={["Profile", "My account", "Logout"]}
+          mobile={true}
+          onCloseExpansion={toggleExpansion}
         />
       </ul>
     </nav>
