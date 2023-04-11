@@ -115,7 +115,7 @@ const OtherUserProgress = () => {
       )}
       {!fetchingData && (
         <button onClick={backHandler} className={classes["back-btn"]}>
-          Back to login page
+          Back to feed page
         </button>
       )}
       {fetchingData && <LoadingData />}

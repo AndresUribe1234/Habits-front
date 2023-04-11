@@ -35,7 +35,7 @@ const MainContent = () => {
               <li>See What Others Are Doing</li>
               <li>Track Your Streaks</li>
               <li>Visualize Your Progress</li>
-              <li>Track Your Progress with a Stunning Graph</li>
+              <li>Track Your Progress with Stunning Graphs</li>
               <li>Compete with Friends</li>
               <li>Tailor Your Profile to Match Your Unique Habits</li>
             </ul>

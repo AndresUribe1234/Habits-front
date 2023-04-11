@@ -55,15 +55,12 @@ const MenuListOwn = (props) => {
     setMenuCoordinates(coordinates);
   };
 
-  const handleClick = (item) => {
-    console.log(`You clicked ${item}`);
-    setIsOpen(false);
-  };
-
   const menuClickHandler = () => {
     if (props.mobile) {
       props.onCloseExpansion();
     }
+
+    setIsOpen(false);
   };
 
   const ulContent = (
@@ -85,11 +82,7 @@ const MenuListOwn = (props) => {
           );
         }
         return (
-          <li
-            key={index}
-            onClick={() => handleClick(item)}
-            onClick={menuClickHandler}
-          >
+          <li key={index} onClick={menuClickHandler}>
             <Link href={`${path}`}>{item}</Link>
           </li>
         );

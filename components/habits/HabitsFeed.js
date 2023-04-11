@@ -67,7 +67,11 @@ const HabitsFeed = () => {
       )}
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}
-      {!fetchingData && !error && <h1>Users habits registrations</h1>}
+      {!fetchingData && !error && (
+        <h1 className={classes["feed-section-title"]}>
+          Users habits registrations
+        </h1>
+      )}
       {!fetchingData && !error && (
         <ul>
           {registrationArray.map((ele, index) => {
