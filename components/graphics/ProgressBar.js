@@ -17,12 +17,6 @@ const ProgressBar = (props) => {
     }
   }, [value]);
 
-  console.log(today);
-
-  console.log();
-
-  console.log(props.data);
-
   return (
     <div className={classes["ui-container"]}>
       <p>0%</p>
@@ -46,7 +40,7 @@ const ProgressBar = (props) => {
             ].join(" ")}
           >
             {" "}
-            {value}%
+            {Math.round(value)}%
           </span>
         </div>
       </div>

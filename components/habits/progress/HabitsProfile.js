@@ -95,7 +95,6 @@ const HaitsProfile = () => {
           <ProgressBar value={60} data={registrationArray[0]} />
         </section>
       )}
-
       {!fetchingData && !error && (
         <section>
           <h1>Habits Calendar</h1>

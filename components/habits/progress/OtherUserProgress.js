@@ -7,6 +7,7 @@ import UserStats from "@/components/stats/UserStats";
 import Calendar from "@/components/graphics/Calendar";
 import BarChartRechart from "@/components/graphics/RechartsBarChart";
 import ErrorMessage from "@/components/Other/ErrorMessage";
+import ProgressBar from "@/components/graphics/ProgressBar";
 
 const OtherUserProgress = () => {
   const router = useRouter();
@@ -99,6 +100,12 @@ const OtherUserProgress = () => {
         <section>
           <h1>Stats</h1>
           <UserStats data={userData} />
+        </section>
+      )}
+      {!fetchingData && !error && (
+        <section>
+          <h1>Daily Completion Progress</h1>
+          <ProgressBar data={registrationArray[0]} />
         </section>
       )}
       {!fetchingData && !error && (

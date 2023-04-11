@@ -9,11 +9,6 @@
     border-bottom: 1px solid #dfdfe8;
   }
 
-  section {
-    padding: 20px 0;
-    border-bottom: 1px solid #dfdfe8;
-  }
-
   .back-btn {
     background-color: white;
     font-size: 12px;
@@ -33,6 +28,19 @@
 
     h1 {
       padding: 0 0 20px 0;
+    }
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dfdfe8;
+    padding: 20px 0;
+
+    h1 {
+      padding-bottom: 20px;
     }
   }
 }
