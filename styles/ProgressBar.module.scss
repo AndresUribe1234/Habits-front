@@ -1,0 +1,44 @@
+@import "./mixins";
+@import "./vars";
+
+.ui-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress-bar-container {
+  width: 75vw;
+  height: 28px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  overflow: hidden;
+
+  .progress-bar {
+    position: relative;
+    height: 100%;
+    color: black;
+    text-align: center;
+    transition: width 0.2s ease-in-out;
+    &.progress {
+      background-color: $yellow-contrast-navbar;
+    }
+    &.success {
+      background-color: $green-contrast-navbar;
+    }
+
+    .progress-bar-label {
+      position: absolute;
+      font-weight: bold;
+      top: 50%;
+      right: 20px;
+      transform: translate(0, -50%);
+
+      &.not-show {
+        color: transparent;
+      }
+    }
+  }
+}
