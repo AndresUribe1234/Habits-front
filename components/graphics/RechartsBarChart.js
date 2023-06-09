@@ -15,20 +15,6 @@ import tz from "moment-timezone";
 const momentRange = require("moment-range");
 momentRange.extendMoment(moment);
 
-const CustomTooltip = ({ active, payload, label, data }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">
-        <p>{`Date: ${label}`}</p>
-        <p>{`Completion Percentage: ${payload[0].value}%`}</p>
-        <p>{`Registrations: ${data[payload[0].index].registrations}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
-
 const BarChartRechart = (props) => {
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 0,

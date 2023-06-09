@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/store/auth-context";
-import classes from "./../../styles/HabitsFeed.module.scss";
+import classes from "./../../../styles/HabitsFeed.module.scss";
 import Link from "next/link";
-import LoadingData from "../Other/LoadingData";
-import ErrorMessage from "../Other/ErrorMessage";
+import LoadingData from "../../Other/LoadingData";
+import ErrorMessage from "../../Other/ErrorMessage";
 import AccordionHabit from "./AccordionHabit";
-import HabitElementBody from "./HabitElementBody";
+import HabitElementBody from "../HabitElementBody";
 import moment from "moment";
 import tz from "moment-timezone";
 

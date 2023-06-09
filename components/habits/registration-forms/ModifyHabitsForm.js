@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import classes from "./../../styles/ModifyHabitsForm.module.scss";
+import classes from "./../../../styles/ModifyHabitsForm.module.scss";
 import { useState, useContext } from "react";
 import AuthContext from "@/store/auth-context";
 
@@ -39,9 +39,6 @@ const ModifyHabitsForm = (props) => {
       );
 
       const data = await response.json();
-
-      console.log("from edit form component");
-      console.log(data);
 
       if (response.status === 200) {
         setSubmitingForm(false);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classes from "./../../styles/AccordionHabit.module.scss";
+import classes from "./../../../styles/AccordionHabit.module.scss";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 

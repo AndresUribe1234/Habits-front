@@ -1,7 +1,7 @@
 import { useContext, useState, useRef } from "react";
 import AuthContext from "@/store/auth-context";
 import Link from "next/link";
-import classes from "./../../styles/AddHabitForm.module.scss";
+import classes from "./../../../styles/AddHabitForm.module.scss";
 import { useRouter } from "next/router";
 
 const AddHabitForm = () => {

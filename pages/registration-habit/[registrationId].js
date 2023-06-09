@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext, Fragment } from "react";
 import AuthContext from "@/store/auth-context";
-import ModifyHabitsForm from "@/components/habits/ModifyHabitsForm";
+import ModifyHabitsForm from "@/components/habits/registration-forms/ModifyHabitsForm";
 
 const UpdateHabitForm = () => {
   const router = useRouter();

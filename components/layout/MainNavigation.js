@@ -98,7 +98,7 @@ const MainNavigaton = () => {
 
   return (
     <header className={classes.header}>
-      <div>Habittus</div>
+      <h1>Habittus</h1>
       <nav>
         <ul>
           {!isLogIn && notLoggedInUI}

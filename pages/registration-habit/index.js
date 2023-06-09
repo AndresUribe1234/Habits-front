@@ -1,4 +1,4 @@
-import AddHabitForm from "@/components/habits/AddHabitForm";
+import AddHabitForm from "@/components/habits/registration-forms/AddHabitForm";
 import { useContext } from "react";
 import AuthContext from "@/store/auth-context";
 import PleaseLogIn from "@/components/Other/PleaseLogIn";
