@@ -30,3 +30,17 @@
     }
   }
 }
+
+@include desktop() {
+  .myprogress-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+
+    section {
+      padding: 0;
+      width: 50%;
+      min-height: 50vh;
+    }
+  }
+}

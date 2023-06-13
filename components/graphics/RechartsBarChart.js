@@ -104,7 +104,7 @@ const BarChartRechart = (props) => {
 
   return (
     <BarChart
-      width={windowSize.width < 500 ? windowSize.width - 30 : 500}
+      width={windowSize.width < 500 ? windowSize.width - 100 : 500}
       height={windowSize.height < 950 ? windowSize.height / 3 : 400}
       data={dataArrayObject}
       margin={{ bottom: 40 }}

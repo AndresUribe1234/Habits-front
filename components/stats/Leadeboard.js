@@ -66,6 +66,7 @@ const Leaderboard = () => {
               }}
             />
           </div>
+
           <div className={classes["table-container"]}>
             <TableLeaderboard
               table={"Longest streak"}

@@ -84,38 +84,32 @@ const HaitsProfile = () => {
   return (
     <div className={classes["myprogress-container"]}>
       {!fetchingData && !error && (
-        <section>
-          <h1>Stats</h1>
-          <UserStats data={userData} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Daily Completion Progress</h1>
-          <ProgressBar value={60} data={registrationArray[0]} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Habits Calendar</h1>
-          <Calendar data={registrationArray} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Last 30 days completion percentage progress</h1>
-          <BarChart data={registrationArray} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <button>
-          <Link
-            href={"/registration-habit?from=myprogress"}
-            className={classes["btn-link"]}
-          >
-            Add habits activity
-          </Link>
-        </button>
+        <>
+          <section>
+            <h1>Stats</h1>
+            <UserStats data={userData} />
+          </section>
+          <section>
+            <h1>Daily Completion Progress</h1>
+            <ProgressBar value={60} data={registrationArray[0]} />
+          </section>
+          <section>
+            <h1>Habits Calendar</h1>
+            <Calendar data={registrationArray} />
+          </section>
+          <section>
+            <h1>Last 30 days completion percentage progress</h1>
+            <BarChart data={registrationArray} />
+          </section>
+          <button>
+            <Link
+              href={"/registration-habit?from=myprogress"}
+              className={classes["btn-link"]}
+            >
+              Add habits activity
+            </Link>
+          </button>
+        </>
       )}
       {fetchingData && <LoadingData />}
       {error && <ErrorMessage error={errorMessage} />}

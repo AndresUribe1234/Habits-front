@@ -57,6 +57,10 @@
       color: white;
     }
   }
+
+  .submitting {
+    padding: 20px 0;
+  }
 }
 
 @include desktop() {

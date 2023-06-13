@@ -94,31 +94,27 @@ const OtherUserProgress = () => {
   return (
     <div className={classes["user-progess-container"]}>
       {!fetchingData && !error && (
-        <h1 className={classes["user-name"]}>{`${userData.name} progress`}</h1>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Stats</h1>
-          <UserStats data={userData} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Daily Completion Progress</h1>
-          <ProgressBar data={registrationArray[0]} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section>
-          <h1>Habits Calendar</h1>
-          <Calendar data={registrationArray} />
-        </section>
-      )}
-      {!fetchingData && !error && (
-        <section className={classes["graph-section"]}>
-          <h1>Last 30 days completion percentage progress</h1>
-          <BarChartRechart data={registrationArray} />
-        </section>
+        <>
+          <h1
+            className={classes["user-name"]}
+          >{`${userData.name} progress`}</h1>
+          <section>
+            <h1>Stats</h1>
+            <UserStats data={userData} />
+          </section>
+          <section>
+            <h1>Daily Completion Progress</h1>
+            <ProgressBar data={registrationArray[0]} />
+          </section>
+          <section>
+            <h1>Habits Calendar</h1>
+            <Calendar data={registrationArray} />
+          </section>
+          <section className={classes["graph-section"]}>
+            <h1>Last 30 days completion percentage progress</h1>
+            <BarChartRechart data={registrationArray} />
+          </section>
+        </>
       )}
       {!fetchingData && (
         <button onClick={backHandler} className={classes["back-btn"]}>

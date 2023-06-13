@@ -78,6 +78,10 @@
   .err-message {
     color: lightcoral;
   }
+
+  .submitting {
+    padding: 20px 0;
+  }
 }
 
 @include desktop() {

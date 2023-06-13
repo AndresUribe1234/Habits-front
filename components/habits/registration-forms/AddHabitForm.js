@@ -100,7 +100,9 @@ const AddHabitForm = () => {
             </div>
           ))}
         </div>
-        {submitingForm && <p>Form submiting...</p>}
+        {submitingForm && (
+          <p className={classes.submitting}>Form submiting...</p>
+        )}
         {!submitingForm && error && (
           <p className={classes["err-message"]}>{`Error: ${errorMessage}`}</p>
         )}
