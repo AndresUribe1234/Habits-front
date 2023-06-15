@@ -60,25 +60,39 @@
         background-color: #ddd;
       }
     }
+
+    .data_logged {
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.success {
+        background-color: #6abd6f;
+      }
+
+      &.inprogress {
+        background-color: #f5e050;
+      }
+
+      &.nexttimeyouwilldobetter {
+        background-color: #f16060;
+      }
+    }
   }
+}
 
-  .data_logged {
-    margin-left: auto;
-    margin-right: auto;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-
-    &.success {
-      background-color: #6abd6f;
-    }
-
-    &.inprogress {
-      background-color: #f5e050;
-    }
-
-    &.nexttimeyouwilldobetter {
-      background-color: #f16060;
+@include desktop() {
+  .calendar_container {
+    .calendar_table_container {
+      .row_cell {
+        width: calc(((100vw / 2) - 100px) / 7);
+        height: calc(((100vw / 2) - 100px) / 7);
+        max-width: 75px;
+        max-height: 75px;
+      }
     }
   }
 }

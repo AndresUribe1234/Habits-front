@@ -94,7 +94,6 @@ const HaitsProfile = () => {
             <ProgressBar value={60} data={registrationArray[0]} />
           </section>
           <section>
-            <h1>Habits Calendar</h1>
             <Calendar data={registrationArray} />
           </section>
           <section>

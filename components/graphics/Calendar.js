@@ -21,12 +21,8 @@ function Calendar(props) {
 
     // Get array of dates from data for when rendering a date knowing if theres an event
     const timeSinceUTC = props.data.map((ele) => {
-      const momentDate = moment
-        .utc(ele.registrationFinalDate)
-        .tz("America/Bogota")
-        .format("YYYY-MM-DD");
-
-      return new Date(momentDate).getTime();
+      const date = moment.utc(ele.registrationFinalDate).format("YYYY-MM-DD");
+      return new Date(date).getTime();
     });
     setDataDateValue(timeSinceUTC);
   }, [props.data]);
@@ -93,6 +89,20 @@ function Calendar(props) {
     setModalView(true);
   };
 
+  const modalHandlerOpenStatus = (id) => {
+    const registrationId = id;
+    const registrationIndex = data
+      .map((ele) => ele._id)
+      .indexOf(registrationId);
+
+    setModalData(data[registrationIndex]);
+    setModalVisible(true);
+  };
+
+  const modalHandlerCloseStatus = (event) => {
+    setModalVisible(false);
+  };
+
   const tableDateFunctionalityHTML = (
     <div className={classes["change_date_container"]}>
       <div className={classes["change_date_btn_container"]}>
@@ -131,6 +141,7 @@ function Calendar(props) {
 
   return (
     <div className={classes.calendar_container}>
+      <h1>Habits Calendar</h1>
       {tableDateFunctionalityHTML}
       <div className={classes.calendar_table_container}>
         <div className={classes.row_container}>
@@ -149,14 +160,21 @@ function Calendar(props) {
             //Loop through all data of corresponding week. "In" returns index in for loop. "Of" returns value in for loop.
             for (let index in ele.valueHtmlCalendar) {
               const day = ele.valueHtmlCalendar[index];
-              //   Add html value for each day in order to construct array od <td/> tags that will build <tr/> tag
+              //   Add html value for each day in order to construct array of <div/> tags that will build <tr/> tag
 
               //  Html passed if date appear in data
-              console.log(
-                dataDateValue.includes(ele.dateValueSecondsFromUTC[index])
-              );
 
               if (dataDateValue.includes(ele.dateValueSecondsFromUTC[index])) {
+                const indexInDataArray = dataDateValue.indexOf(
+                  ele.dateValueSecondsFromUTC[index]
+                );
+
+                const id = data[indexInDataArray]._id;
+                const completionStatus = data[indexInDataArray].completionStatus
+                  .toLowerCase()
+                  .split(" ")
+                  .join("");
+
                 rowsBody.push(
                   <div
                     key={Math.random()}
@@ -164,7 +182,16 @@ function Calendar(props) {
                     data-day={day}
                     className={classes.row_cell}
                   >
-                    <div>{day}</div>
+                    <div
+                      className={[
+                        classes[`${completionStatus}`],
+                        classes["data_logged"],
+                      ].join(" ")}
+                      onClick={modalHandlerOpenStatus.bind(this, id)}
+                      data-id={id}
+                    >
+                      <div>{day}</div>
+                    </div>
                   </div>
                 );
               }
@@ -186,7 +213,7 @@ function Calendar(props) {
             // Return one table row for each week of the calendar array
             return (
               <div
-                data-week={weekIndex}
+                data-week={weekIndex + 1}
                 key={Math.random()}
                 className={classes.row_container}
               >
