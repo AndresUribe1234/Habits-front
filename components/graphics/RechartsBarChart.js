@@ -145,7 +145,7 @@ const BarChartRechart = (props) => {
       }
     }
   };
-
+  console.log(authCtx.windowSize);
   return (
     <div className={classes.bar_container}>
       <h1>{title}</h1>
@@ -153,9 +153,7 @@ const BarChartRechart = (props) => {
         width={
           authCtx.windowSize.width < 500 ? authCtx.windowSize.width - 100 : 500
         }
-        height={
-          authCtx.windowSize.height < 950 ? authCtx.windowSize.height / 3 : 400
-        }
+        height={authCtx.windowSize.height < 800 ? 275 : 400}
         data={dataArrayObject}
         margin={{ bottom: 40 }}
       >

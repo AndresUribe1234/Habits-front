@@ -111,7 +111,6 @@ const OtherUserProgress = () => {
             <Calendar data={registrationArray} />
           </section>
           <section className={classes["graph-section"]}>
-            <h1>Last 30 days completion percentage progress</h1>
             <BarChartRechart data={registrationArray} />
           </section>
         </>
