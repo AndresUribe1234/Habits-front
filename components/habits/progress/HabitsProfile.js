@@ -98,7 +98,6 @@ const HaitsProfile = () => {
             <Calendar data={registrationArray} />
           </section>
           <section>
-            <h1>Last 30 days completion percentage progress</h1>
             <BarChart data={registrationArray} />
           </section>
           <button>
