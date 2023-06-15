@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import {
   BarChart,
   Bar,
@@ -28,7 +28,11 @@ const BarChartRechart = (props) => {
     "Last 30 days completion percentage progress"
   );
   const authCtx = useContext(AuthContext);
+
+  // All user habits information
   const { data } = props;
+
+  // Default values for date inputs
   const todayDateString = moment
     .utc()
     .tz("America/Bogota")
@@ -40,6 +44,7 @@ const BarChartRechart = (props) => {
     .subtract(30, "d")
     .format("YYYY-MM-DD");
 
+  // Logic to build object from where the graph will be built
   const arrayUTCSecData = data.map((ele) =>
     new Date(ele.registrationFinalDate).getTime()
   );
@@ -51,7 +56,7 @@ const BarChartRechart = (props) => {
   const range = moment.range(endingDate, startingDate);
 
   const arrayOfDatesStr = Array.from(range.by("day")).map((m) =>
-    m.format("MMM-DD")
+    m.format("MMM DD, YY")
   );
 
   const arrayOfDatesUTC = Array.from(range.by("day")).map((m) =>
@@ -103,6 +108,7 @@ const BarChartRechart = (props) => {
     };
   });
 
+  // Logic trigger changes in the graph when date are selected
   const dateSelectionHandler = (setValue, type, event) => {
     setError(false);
 
@@ -160,11 +166,10 @@ const BarChartRechart = (props) => {
         margin={{ bottom: 40 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="xAxis" angle={-90} textAnchor="end" />
+        <XAxis dataKey="xAxis" angle={315} textAnchor="end" />
         <YAxis
           label={{ value: "Completion percentage %", angle: -90, dx: -20 }}
         />
-        {/* <Tooltip /> */}
         <Tooltip
           content={({ active, payload, label }) => {
             if (active && payload) {
