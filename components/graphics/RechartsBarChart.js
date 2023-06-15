@@ -153,7 +153,7 @@ const BarChartRechart = (props) => {
         width={
           authCtx.windowSize.width < 500 ? authCtx.windowSize.width - 100 : 500
         }
-        height={authCtx.windowSize.height < 800 ? 275 : 400}
+        height={authCtx.windowSize.height < 800 ? 250 : 400}
         data={dataArrayObject}
         margin={{ bottom: 40 }}
       >
