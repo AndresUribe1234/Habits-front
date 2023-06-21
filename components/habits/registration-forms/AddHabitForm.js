@@ -1,8 +1,10 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import AuthContext from "@/store/auth-context";
 import Link from "next/link";
 import classes from "./../../../styles/AddHabitForm.module.scss";
 import { useRouter } from "next/router";
+import moment from "moment";
+import HabitsContext from "@/store/habits-context";
 
 const AddHabitForm = () => {
   const authCtx = useContext(AuthContext);
@@ -10,16 +12,24 @@ const AddHabitForm = () => {
   const [submitingForm, setSubmitingForm] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const dateRef = useRef();
   const router = useRouter();
 
-  let date = new Date(Date.now());
-  date = date.toLocaleString("en-GB");
-  const year = date.substring(6, 10);
-  const month = date.substring(3, 5);
-  const day = date.substring(0, 2);
+  const today = moment().format("YYYY-MM-DD");
+  const habitsCtx = useContext(HabitsContext);
+  const habits = habitsCtx.habits;
+  const [existingDates, setExistingDates] = useState();
 
-  const habits = authCtx.authObject.habits;
+  useEffect(() => {
+    const habitsExistingDates = habitsCtx.registrations.map(
+      (ele) => ele.registrationDateAsString
+    );
+    console.log(habitsExistingDates);
+    setExistingDates(habitsExistingDates);
+  }, []);
+
+  console.log(habitsCtx);
 
   const registerHabit = async (date, habits) => {
     try {
@@ -72,6 +82,17 @@ const AddHabitForm = () => {
     registerHabit(enteredDate, habitsToSubmit);
   };
 
+  const selectDateHandler = (event) => {
+    const date = event.target.value;
+    console.log("date", date);
+    setDate(date);
+    if (existingDates.includes(date)) {
+      console.log("checkpoint ready");
+    } else {
+      console.log("no date for this date");
+    }
+  };
+
   return (
     <div className={classes["add-form"]}>
       <h1 className={classes["form-title"]}>Add Registration Form</h1>
@@ -80,10 +101,12 @@ const AddHabitForm = () => {
           <h2>Date</h2>
           <input
             type={"date"}
-            defaultValue={`${year}-${month}-${day}`}
-            max={`${year}-${month}-${day}`}
+            defaultValue={today}
+            value={date}
+            max={today}
             className={classes["date-input"]}
             ref={dateRef}
+            onChange={selectDateHandler}
           ></input>
         </div>
         <div className={classes["habits-section"]}>
