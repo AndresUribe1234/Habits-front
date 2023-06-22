@@ -13,20 +13,32 @@ const AddHabitForm = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+  const [habitsArray, setHabitsArray] = useState([]);
   const dateRef = useRef();
   const router = useRouter();
 
   const today = moment().format("YYYY-MM-DD");
   const habitsCtx = useContext(HabitsContext);
   const habits = habitsCtx.habits;
-  const [existingDates, setExistingDates] = useState();
+  const [existingArrayDates, setExistinArraygDates] = useState();
+  const [newRegistrationCreation, setNewRegistrationCreation] = useState(true);
+  const [existingRegistration, setExistingRegistration] = useState({});
 
   useEffect(() => {
+    setHabitsArray(habitsCtx.habits);
     const habitsExistingDates = habitsCtx.registrations.map(
       (ele) => ele.registrationDateAsString
     );
-    console.log(habitsExistingDates);
-    setExistingDates(habitsExistingDates);
+    setExistinArraygDates(habitsExistingDates);
+    if (habitsExistingDates.includes(today)) {
+      setNewRegistrationCreation(false);
+    }
+    if (!habitsExistingDates.includes(today)) {
+      setNewRegistrationCreation(true);
+    }
+
+    const checkboxHabitObject = {};
+    habitsCtx.habits.forEach((element) => {});
   }, []);
 
   console.log(habitsCtx);
@@ -84,14 +96,78 @@ const AddHabitForm = () => {
 
   const selectDateHandler = (event) => {
     const date = event.target.value;
-    console.log("date", date);
+    // Logic to determine if in the date select a new registration should be created or an old should be updated
     setDate(date);
-    if (existingDates.includes(date)) {
-      console.log("checkpoint ready");
+    if (existingArrayDates.includes(date)) {
+      setNewRegistrationCreation(false);
+      const index = existingArrayDates.findIndex((ele) => ele === date);
+      const existingElement = habitsCtx.registrations[index];
+      console.log("Index of registration:", index);
+      console.log("Registration:", existingElement);
+      setExistingRegistration(existingElement);
+      setHabitsArray(existingElement.userHabitsGoalDayRegistration);
     } else {
-      console.log("no date for this date");
+      setNewRegistrationCreation(true);
+      setExistingRegistration({});
     }
   };
+
+  let inputCheckboxHTML;
+
+  // HTML when theres no prior registration
+  if (newRegistrationCreation) {
+    inputCheckboxHTML = (
+      <>
+        {habitsArray.map((ele) => (
+          <div key={ele}>
+            <label className={classes["habit-placeholder"]}>{ele}</label>
+            <input
+              type={"checkbox"}
+              value={ele}
+              onChange={checkedHandler}
+              className={classes["checkbox-input"]}
+              checked={false}
+            ></input>
+          </div>
+        ))}
+      </>
+    );
+  }
+
+  // HTML when updating an existing habit registration
+  if (!newRegistrationCreation) {
+    inputCheckboxHTML = (
+      <>
+        {habitsArray.map((ele) => {
+          let isChecked = false;
+
+          console.log(ele);
+          console.log(
+            existingRegistration.userHabitsAchievedDayRegistration.includes(ele)
+          );
+
+          // What determines if the input checkbod should be marked or empty
+          if (
+            existingRegistration.userHabitsAchievedDayRegistration.includes(ele)
+          ) {
+            isChecked = true;
+          }
+          return (
+            <div key={ele}>
+              <label className={classes["habit-placeholder"]}>{ele}</label>
+              <input
+                type={"checkbox"}
+                value={ele}
+                onChange={checkedHandler}
+                className={classes["checkbox-input"]}
+                checked={isChecked}
+              ></input>
+            </div>
+          );
+        })}
+      </>
+    );
+  }
 
   return (
     <div className={classes["add-form"]}>
@@ -111,17 +187,7 @@ const AddHabitForm = () => {
         </div>
         <div className={classes["habits-section"]}>
           <h2>Habits</h2>
-          {habits.map((ele) => (
-            <div key={ele}>
-              <label className={classes["habit-placeholder"]}>{ele}</label>
-              <input
-                type={"checkbox"}
-                value={ele}
-                onChange={checkedHandler}
-                className={classes["checkbox-input"]}
-              ></input>
-            </div>
-          ))}
+          {inputCheckboxHTML}
         </div>
         {submitingForm && (
           <p className={classes.submitting}>Form submiting...</p>
