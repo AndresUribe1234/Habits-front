@@ -3,9 +3,11 @@ import AuthContext from "@/store/auth-context";
 import classes from "./../../styles/ProfileForm.module.scss";
 import ModalMuiAddHabitSettings from "./ModalMuiAddHabitSettings";
 import ProfileHabitElement from "./ProfileHabitElement";
+import HabitsContext from "@/store/habits-context";
 
 const ProfileForm = () => {
   const authCtx = useContext(AuthContext);
+  const habitsCtx = useContext(HabitsContext);
   const [editingProfil, setEditingProfile] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -64,6 +66,7 @@ const ProfileForm = () => {
       if (response.status === 200) {
         setEditingProfile(false);
         setError(false);
+        habitsCtx.fetchHabitsFxn();
       }
       if (response.status !== 200) {
         setError(true);

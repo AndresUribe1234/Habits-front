@@ -38,8 +38,23 @@ const AddHabitForm = () => {
     }
 
     const checkboxHabitObject = {};
-    habitsCtx.habits.forEach((element) => {});
+    habitsCtx.habits.forEach((element) => {
+      checkboxHabitObject[element] = false;
+    });
+    setHabitsCheckbox(checkboxHabitObject);
   }, []);
+
+  useEffect(() => {
+    if (date === today) {
+      console.log("hello world i selected today");
+      setHabitsArray(habitsCtx.habits);
+    }
+
+    if (date !== today) {
+      console.log("hello world i selected something from the past");
+      setHabitsArray(existingRegistration.userHabitsGoalDayRegistration);
+    }
+  }, [existingRegistration]);
 
   console.log(habitsCtx);
 
@@ -95,20 +110,34 @@ const AddHabitForm = () => {
   };
 
   const selectDateHandler = (event) => {
+    console.log("On change handler running");
     const date = event.target.value;
     // Logic to determine if in the date select a new registration should be created or an old should be updated
+
     setDate(date);
     if (existingArrayDates.includes(date)) {
       setNewRegistrationCreation(false);
+      // Getting registration of all possible entries
       const index = existingArrayDates.findIndex((ele) => ele === date);
       const existingElement = habitsCtx.registrations[index];
       console.log("Index of registration:", index);
       console.log("Registration:", existingElement);
+      // Changing state of the component to match the registration the user requested
       setExistingRegistration(existingElement);
       setHabitsArray(existingElement.userHabitsGoalDayRegistration);
+      existingElement.userHabitsAchievedDayRegistration.forEach((ele) => {
+        setHabitsCheckbox((prev) => ({
+          ...prev,
+          [ele]: true,
+        }));
+      });
+      console.log(habitsCheckbox);
     } else {
       setNewRegistrationCreation(true);
       setExistingRegistration({});
+      habits.forEach((ele) => {
+        setHabitsCheckbox((prev) => ({ ...prev, [ele]: false }));
+      });
     }
   };
 
@@ -141,10 +170,7 @@ const AddHabitForm = () => {
         {habitsArray.map((ele) => {
           let isChecked = false;
 
-          console.log(ele);
-          console.log(
-            existingRegistration.userHabitsAchievedDayRegistration.includes(ele)
-          );
+          console.log("Habit active during mapping array:", ele);
 
           // What determines if the input checkbod should be marked or empty
           if (
@@ -168,6 +194,8 @@ const AddHabitForm = () => {
       </>
     );
   }
+
+  console.log(habitsCheckbox);
 
   return (
     <div className={classes["add-form"]}>
