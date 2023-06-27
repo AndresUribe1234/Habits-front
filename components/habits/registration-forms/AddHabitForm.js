@@ -5,6 +5,7 @@ import classes from "./../../../styles/AddHabitForm.module.scss";
 import { useRouter } from "next/router";
 import moment from "moment";
 import HabitsContext from "@/store/habits-context";
+import LoadingData from "@/components/Other/LoadingData";
 
 const AddHabitForm = () => {
   const authCtx = useContext(AuthContext);
@@ -45,15 +46,32 @@ const AddHabitForm = () => {
   }, []);
 
   useEffect(() => {
+    const newHabitCheckbox = {};
+
     if (date === today) {
-      console.log("hello world i selected today");
       setHabitsArray(habitsCtx.habits);
+      habitsCtx.habits.forEach((ele) => {
+        if (ele in habitsCheckbox) {
+          newHabitCheckbox[ele] = habitsCheckbox[ele];
+        } else {
+          newHabitCheckbox[ele] = false;
+        }
+      });
     }
 
     if (date !== today) {
-      console.log("hello world i selected something from the past");
       setHabitsArray(existingRegistration.userHabitsGoalDayRegistration);
+      existingRegistration.userHabitsGoalDayRegistration.forEach((ele) => {
+        if (ele in habitsCheckbox) {
+          newHabitCheckbox[ele] = habitsCheckbox[ele];
+        } else {
+          newHabitCheckbox[ele] = false;
+        }
+      });
     }
+
+    // Redefine habits checkbox with habits corresponding to registration
+    setHabitsCheckbox(newHabitCheckbox);
   }, [existingRegistration]);
 
   console.log(habitsCtx);
@@ -103,10 +121,17 @@ const AddHabitForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     const enteredDate = dateRef.current.value;
-    const habitsToSubmit = Object.keys(habitsCheckbox).filter(
-      (ele) => habitsCheckbox[ele] % 2 !== 0
-    );
-    registerHabit(enteredDate, habitsToSubmit);
+    const habitsToSubmit = [];
+
+    console.log("habits checkbox:", habitsCheckbox);
+    for (let key in habitsCheckbox) {
+      if (habitsCheckbox[key]) {
+        habitsToSubmit.push(key);
+      }
+    }
+
+    console.log("habits to submit array:", habitsToSubmit);
+    // registerHabit(enteredDate, habitsToSubmit);
   };
 
   const selectDateHandler = (event) => {
@@ -141,6 +166,10 @@ const AddHabitForm = () => {
     }
   };
 
+  if (habitsArray.length === 0) {
+    return <LoadingData />;
+  }
+
   let inputCheckboxHTML;
 
   // HTML when theres no prior registration
@@ -169,8 +198,6 @@ const AddHabitForm = () => {
       <>
         {habitsArray.map((ele) => {
           let isChecked = false;
-
-          console.log("Habit active during mapping array:", ele);
 
           // What determines if the input checkbod should be marked or empty
           if (
