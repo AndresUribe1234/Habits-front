@@ -9,21 +9,18 @@ import LoadingData from "@/components/Other/LoadingData";
 
 const AddHabitForm = () => {
   const authCtx = useContext(AuthContext);
+  const habitsCtx = useContext(HabitsContext);
   const [habitsCheckbox, setHabitsCheckbox] = useState({});
   const [submitingForm, setSubmitingForm] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [habitsArray, setHabitsArray] = useState([]);
-  const dateRef = useRef();
-  const router = useRouter();
-
-  const today = moment().format("YYYY-MM-DD");
-  const habitsCtx = useContext(HabitsContext);
-  const habits = habitsCtx.habits;
   const [existingArrayDates, setExistinArraygDates] = useState();
   const [newRegistrationCreation, setNewRegistrationCreation] = useState(true);
   const [existingRegistration, setExistingRegistration] = useState({});
+  const today = moment().format("YYYY-MM-DD");
+  const router = useRouter();
 
   useEffect(() => {
     setHabitsArray(habitsCtx.habits);
@@ -31,17 +28,26 @@ const AddHabitForm = () => {
       (ele) => ele.registrationDateAsString
     );
     setExistinArraygDates(habitsExistingDates);
+    let indexOfTodayRegistration;
     if (habitsExistingDates.includes(today)) {
       setNewRegistrationCreation(false);
-    }
-    if (!habitsExistingDates.includes(today)) {
+      // If theres a registration for today assigned as existing registration when component is initialized
+      indexOfTodayRegistration = habitsExistingDates.findIndex(
+        (ele) => ele === today
+      );
+      setExistingRegistration(
+        habitsCtx.registrations[indexOfTodayRegistration]
+      );
+    } else {
       setNewRegistrationCreation(true);
     }
 
     const checkboxHabitObject = {};
+
     habitsCtx.habits.forEach((element) => {
       checkboxHabitObject[element] = false;
     });
+
     setHabitsCheckbox(checkboxHabitObject);
   }, []);
 
@@ -57,11 +63,26 @@ const AddHabitForm = () => {
           newHabitCheckbox[ele] = false;
         }
       });
+
+      if (existingRegistration) {
+        existingRegistration?.userHabitsAchievedDayRegistration?.forEach(
+          (ele) => {
+            newHabitCheckbox[ele] = true;
+          }
+        );
+      }
     }
 
     if (date !== today) {
-      setHabitsArray(existingRegistration.userHabitsGoalDayRegistration);
-      existingRegistration.userHabitsGoalDayRegistration.forEach((ele) => {
+      setHabitsArray(
+        existingRegistration?.userHabitsGoalDayRegistration || habitsCtx.habits
+      );
+
+      // Determines if its an old existing registration or an old date for where no registration exists
+      const habitsToLoop =
+        existingRegistration?.userHabitsGoalDayRegistration || habitsCtx.habits;
+
+      habitsToLoop.forEach((ele) => {
         if (ele in habitsCheckbox) {
           newHabitCheckbox[ele] = habitsCheckbox[ele];
         } else {
@@ -71,12 +92,11 @@ const AddHabitForm = () => {
     }
 
     // Redefine habits checkbox with habits corresponding to registration
+
     setHabitsCheckbox(newHabitCheckbox);
   }, [existingRegistration]);
 
-  console.log(habitsCtx);
-
-  const registerHabit = async (date, habits) => {
+  const addNewHabitRegistration = async (date, habits) => {
     try {
       const objectOptions = {
         method: "POST",
@@ -88,6 +108,7 @@ const AddHabitForm = () => {
       };
       setError(false);
       setSubmitingForm(true);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_NODE_URL}/api/registration/single-user/`,
         objectOptions
@@ -95,8 +116,45 @@ const AddHabitForm = () => {
       const data = await response.json();
 
       if (response.status === 200) {
+        await habitsCtx.fetchRegistrationsFxn();
+        router.back();
         setSubmitingForm(false);
-        router.push(`/${router.query.from}`);
+      }
+      if (response.status !== 200) {
+        setSubmitingForm(false);
+        setError(true);
+        setErrorMessage(data.err);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const modifyExistingHabitRegistration = async (habits) => {
+    try {
+      const objectOptions = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + authCtx.authObject.token,
+        },
+        body: JSON.stringify({ habits: habits }),
+      };
+
+      setError(false);
+      setSubmitingForm(true);
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_NODE_URL}/api/registration/entry/${existingRegistration._id}`,
+        objectOptions
+      );
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        await habitsCtx.fetchRegistrationsFxn();
+        router.back();
+        setSubmitingForm(false);
       }
       if (response.status !== 200) {
         setSubmitingForm(false);
@@ -110,119 +168,77 @@ const AddHabitForm = () => {
 
   const checkedHandler = (event) => {
     const value = event.target.value;
-    setHabitsCheckbox((prev) => {
-      return {
-        ...prev,
-        [value]: habitsCheckbox[value] ? habitsCheckbox[value] + 1 : 1,
-      };
-    });
+
+    // Conditionals to change checked status to know what i need to send to back
+    if (habitsCheckbox[value] === false) {
+      setHabitsCheckbox((prev) => {
+        return { ...prev, [value]: true };
+      });
+    }
+    if (habitsCheckbox[value] === true) {
+      setHabitsCheckbox((prev) => {
+        return { ...prev, [value]: false };
+      });
+    }
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const enteredDate = dateRef.current.value;
     const habitsToSubmit = [];
 
-    console.log("habits checkbox:", habitsCheckbox);
     for (let key in habitsCheckbox) {
       if (habitsCheckbox[key]) {
         habitsToSubmit.push(key);
       }
     }
 
-    console.log("habits to submit array:", habitsToSubmit);
-    // registerHabit(enteredDate, habitsToSubmit);
+    // Function called to create a post to backend
+    if (newRegistrationCreation === true) {
+      addNewHabitRegistration(date, habitsToSubmit);
+    }
+
+    // Function called to create a patch to backend
+    if (newRegistrationCreation === false) {
+      modifyExistingHabitRegistration(habitsToSubmit);
+    }
   };
 
   const selectDateHandler = (event) => {
-    console.log("On change handler running");
     const date = event.target.value;
     // Logic to determine if in the date select a new registration should be created or an old should be updated
 
     setDate(date);
+    const newHabitCheckboxObject = {};
     if (existingArrayDates.includes(date)) {
       setNewRegistrationCreation(false);
       // Getting registration of all possible entries
       const index = existingArrayDates.findIndex((ele) => ele === date);
       const existingElement = habitsCtx.registrations[index];
-      console.log("Index of registration:", index);
-      console.log("Registration:", existingElement);
       // Changing state of the component to match the registration the user requested
       setExistingRegistration(existingElement);
       setHabitsArray(existingElement.userHabitsGoalDayRegistration);
-      existingElement.userHabitsAchievedDayRegistration.forEach((ele) => {
-        setHabitsCheckbox((prev) => ({
-          ...prev,
-          [ele]: true,
-        }));
+      existingElement.userHabitsGoalDayRegistration.forEach((ele) => {
+        if (existingElement.userHabitsAchievedDayRegistration.includes(ele)) {
+          newHabitCheckboxObject[ele] = true;
+        } else {
+          newHabitCheckboxObject[ele] = false;
+        }
       });
-      console.log(habitsCheckbox);
     } else {
+      // What to do if theres no registration for this date
       setNewRegistrationCreation(true);
       setExistingRegistration({});
-      habits.forEach((ele) => {
-        setHabitsCheckbox((prev) => ({ ...prev, [ele]: false }));
+      habitsArray.forEach((ele) => {
+        newHabitCheckboxObject[ele] = false;
       });
     }
+    // Set checkbox object that its what determines post/patch to back and if checkbox is checked
+    setHabitsCheckbox(newHabitCheckboxObject);
   };
 
   if (habitsArray.length === 0) {
     return <LoadingData />;
   }
-
-  let inputCheckboxHTML;
-
-  // HTML when theres no prior registration
-  if (newRegistrationCreation) {
-    inputCheckboxHTML = (
-      <>
-        {habitsArray.map((ele) => (
-          <div key={ele}>
-            <label className={classes["habit-placeholder"]}>{ele}</label>
-            <input
-              type={"checkbox"}
-              value={ele}
-              onChange={checkedHandler}
-              className={classes["checkbox-input"]}
-              checked={false}
-            ></input>
-          </div>
-        ))}
-      </>
-    );
-  }
-
-  // HTML when updating an existing habit registration
-  if (!newRegistrationCreation) {
-    inputCheckboxHTML = (
-      <>
-        {habitsArray.map((ele) => {
-          let isChecked = false;
-
-          // What determines if the input checkbod should be marked or empty
-          if (
-            existingRegistration.userHabitsAchievedDayRegistration.includes(ele)
-          ) {
-            isChecked = true;
-          }
-          return (
-            <div key={ele}>
-              <label className={classes["habit-placeholder"]}>{ele}</label>
-              <input
-                type={"checkbox"}
-                value={ele}
-                onChange={checkedHandler}
-                className={classes["checkbox-input"]}
-                checked={isChecked}
-              ></input>
-            </div>
-          );
-        })}
-      </>
-    );
-  }
-
-  console.log(habitsCheckbox);
 
   return (
     <div className={classes["add-form"]}>
@@ -232,17 +248,28 @@ const AddHabitForm = () => {
           <h2>Date</h2>
           <input
             type={"date"}
-            defaultValue={today}
             value={date}
             max={today}
             className={classes["date-input"]}
-            ref={dateRef}
             onChange={selectDateHandler}
           ></input>
         </div>
         <div className={classes["habits-section"]}>
           <h2>Habits</h2>
-          {inputCheckboxHTML}
+          {habitsArray.map((ele) => {
+            return (
+              <div key={ele}>
+                <label className={classes["habit-placeholder"]}>{ele}</label>
+                <input
+                  type={"checkbox"}
+                  value={ele}
+                  onChange={checkedHandler}
+                  className={classes["checkbox-input"]}
+                  checked={habitsCheckbox[ele]}
+                ></input>
+              </div>
+            );
+          })}
         </div>
         {submitingForm && (
           <p className={classes.submitting}>Form submiting...</p>
